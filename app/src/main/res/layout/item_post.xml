@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/boder_post"
+    android:paddingStart="13dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="13dp"
+    android:elevation="2dp"
+    android:paddingBottom="16dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_avt"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avatar_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="Nguyễn Văn A"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/image_avt"
+        app:layout_constraintTop_toTopOf="@+id/image_avt" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="28/03/2024"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ic_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_optionmenu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="DẪN LỐI TẬN HƯỞNG ĐỘC BẢN CÙNG MAGNUM x VIETMAX
+MAGNUM kết hợp với Việt Max tạo nên Bespoke Pleasure Box - tuyệt tác truyền cảm hứng cho những Người Tiên Phong Tận Hưởng thể hiện phong cách độc bản của mình.
+💛Lối tận hưởng Phá Cách - Sáng tạo, Độc Đáo, Khác Biệt…"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ic_edit"
+        app:layout_constraintTop_toBottomOf="@+id/ic_edit" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_post_client"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

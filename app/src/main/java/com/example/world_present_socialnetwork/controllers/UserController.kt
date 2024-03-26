@@ -47,4 +47,21 @@ class UserController {
 
         })
     }
+    fun getUser(id: String, callback: (User?, String?) -> Unit){
+        apiService.getUser(id).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful){
+                    val user = response.body()
+                    callback(user, null)
+                }else{
+                    callback(null,response.errorBody()?.string() ?: "Lỗi thông tin tài khoản" )
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+        })
+    }
 }
