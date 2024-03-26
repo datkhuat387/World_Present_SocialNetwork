@@ -54,15 +54,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
     fun performLogout() {
-        // Xóa dữ liệu đăng nhập và chuyển về màn hình đăng nhập
         val sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
 
-        // Chuyển về Activity đăng nhập
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
-        finish() // Đóng Activity hiện tại để ngăn người dùng quay lại khi nhấn nút "Back"
+        finish()
     }
 }

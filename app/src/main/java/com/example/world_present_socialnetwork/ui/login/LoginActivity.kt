@@ -64,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
                         "Đăng nhập thành công",
                         Toast.LENGTH_SHORT
                     ).show()
+                    finish()
                 } else {
                     // Error
                     Toast.makeText(this@LoginActivity, "$error", Toast.LENGTH_SHORT).show()
