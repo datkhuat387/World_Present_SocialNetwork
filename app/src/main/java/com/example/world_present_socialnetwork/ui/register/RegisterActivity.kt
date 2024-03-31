@@ -35,7 +35,7 @@ class RegisterActivity : AppCompatActivity() {
             if(email.isEmpty()||password.isEmpty()){
                 Toast.makeText(
                     this@RegisterActivity,
-                    "Email hoặc mật khẩu không được để trống",
+                    "Tên đăng nhập hoặc mật khẩu không được để trống",
                     Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }

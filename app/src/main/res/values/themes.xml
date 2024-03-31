@@ -4,7 +4,10 @@
         <!-- Customize your light theme here. -->
 <!--         <item name="colorPrimary">@color/blue</item>-->
     </style>
-
+    <style name="round_avt_cirle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
     <style name="Theme.World_Present_SocialNetwork" parent="Base.Theme.World_Present_SocialNetwork" >
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">@color/black</item>

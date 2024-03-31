@@ -16,6 +16,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.comment.CommentActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.changePassword.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.profile.ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.post.updatePost.UpdatePostActivity"
             android:exported="false" />
         <activity

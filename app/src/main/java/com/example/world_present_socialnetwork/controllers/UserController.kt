@@ -12,8 +12,8 @@ class UserController {
     private val apiService: ApiService = RetrofitClient.apiService
 
     // login
-    fun login(email: String, password: String, callback: (User?, String?) -> Unit){
-        val loginRequest = LoginRequest(email, password)
+    fun login(username: String, password: String, callback: (User?, String?) -> Unit){
+        val loginRequest = LoginRequest(username, password)
         apiService.login(loginRequest).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
@@ -29,8 +29,8 @@ class UserController {
         })
     }
     // register
-    fun register(email: String,password: String,fullname: String, callback: (User?, String?) -> Unit){
-        val registerRequest = LoginRequest(email, password, fullname)
+    fun register(username: String,password: String,fullname: String, callback: (User?, String?) -> Unit){
+        val registerRequest = LoginRequest(username, password, fullname)
         apiService.register(registerRequest).enqueue(object : Callback<User>{
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if(response.isSuccessful){

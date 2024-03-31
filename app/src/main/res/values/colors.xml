@@ -9,7 +9,8 @@
     <color name="gray_2">#828282</color>
     <color name="gray_3">#6A6A6A</color>
     <color name="gray_4">#d9d9d9</color>
-    <color name="gray_5">#F6F6F6</color>
+    <color name="gray_5">#828282</color>
+    <color name="gray_6">#EDEDED</color>
     <color name="blue_2">#4081BBDA</color>
     <color name="green">#4CAF50</color>
     <color name="orange">#FFC107</color>

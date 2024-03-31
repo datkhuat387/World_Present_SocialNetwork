@@ -40,23 +40,23 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun login() {
         binding.btnLogin.setOnClickListener {
-            val email = binding.tilEmail.editText?.text.toString()
+            val username = binding.tilUsername.editText?.text.toString()
             val password = binding.tilPassword.editText?.text.toString()
-            if (email.isEmpty() || password.isEmpty()) {
+            if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(
                     this@LoginActivity,
-                    "Email hoặc mật khẩu không được để trống",
+                    "Tên đăng nhập hoặc mật khẩu không được để trống",
                     Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            userController.login(email, password) { user, error ->
+            userController.login(username, password) { user, error ->
                 if (user != null) {
                     // login success
                     val sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putString("id", user._id)
                     editor.apply()
-                    Log.e("test3", user._id)
+                    user._id?.let { it1 -> Log.e("test3", it1) }
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(
