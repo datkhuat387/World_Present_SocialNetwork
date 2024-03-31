@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.world_present_socialnetwork.MainActivity
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.UserController
@@ -39,7 +40,12 @@ class MenuFragment : Fragment() {
             userController.getUser(it){ user, error ->
                 if (user != null) {
                     binding.tvFullname.text = user.fullname
-                    binding.tvEmail.text = user.email
+
+                    Glide.with(requireContext())
+                        .load(user.avatar)
+                        .placeholder(R.drawable.avatar_profile)
+                        .error(R.drawable.avatar_profile)
+                        .into(binding.imgAvatar)
                 }else{
                     Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
                 }

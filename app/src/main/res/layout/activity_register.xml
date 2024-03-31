@@ -26,7 +26,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="60dp"
-        android:hint="Email"
+        android:hint="Email hoặc Số điện thoại"
         app:boxCornerRadiusBottomEnd="8dp"
         app:boxCornerRadiusBottomStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
