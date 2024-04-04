@@ -11,4 +11,6 @@ data class User(
     var avatar:String? = null,
     var createAt:String? = null,
     var updateAt:String? = null
-){}
+){
+
+}

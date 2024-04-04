@@ -1,6 +1,6 @@
 package com.example.world_present_socialnetwork.model
 
-data class Comments(
+data class CommentsExtend(
     var _id:String? = null,
     var idUser:String? = null,
     var idPost:String? = null,

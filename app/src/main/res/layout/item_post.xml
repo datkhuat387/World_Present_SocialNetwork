@@ -82,18 +82,48 @@ MAGNUM kết hợp với Việt Max tạo nên Bespoke Pleasure Box - tuyệt t�
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cons_1"
         />
-
+    <LinearLayout
+        android:id="@+id/lnr_like_cmt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_post"
+        >
+        <TextView
+            android:id="@+id/tv_count_like"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            android:text="0 lượt thích"
+            android:textColor="@color/gray_5"
+            />
+        <TextView
+            android:id="@+id/tv_count_cmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 bình luận"
+            android:gravity="right"
+            android:textSize="16sp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/gray_5"
+            />
+    </LinearLayout>
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="8dp"
         android:background="@color/gray_4"
         android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_post" />
+        app:layout_constraintTop_toBottomOf="@+id/lnr_like_cmt" />
 
     <LinearLayout
         android:id="@+id/ln_1"
@@ -117,7 +147,6 @@ MAGNUM kết hợp với Việt Max tạo nên Bespoke Pleasure Box - tuyệt t�
             android:paddingHorizontal="10dp"
             android:textColor="@color/gray_5"
             android:textStyle="bold"
-
             android:drawableLeft="@drawable/ic_like_default"
             />
         <TextView
