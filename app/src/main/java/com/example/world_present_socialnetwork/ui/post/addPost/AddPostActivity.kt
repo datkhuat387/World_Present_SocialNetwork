@@ -11,10 +11,6 @@ import android.widget.Toast
 import com.example.world_present_socialnetwork.controllers.PostController
 import com.example.world_present_socialnetwork.databinding.ActivityAddPostBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class AddPostActivity : AppCompatActivity() {
@@ -70,9 +66,7 @@ class AddPostActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             //Image Uri will not be null for RESULT_OK
             imageUri = data?.data!!
-
             // Use Uri object instead of File to avoid storage permissions
-//            imgProfile.setImageURI(fileUri)
             binding.imagePost.setImageURI(imageUri)
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
