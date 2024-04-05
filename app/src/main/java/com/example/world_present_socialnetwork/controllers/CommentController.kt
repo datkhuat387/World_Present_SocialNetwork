@@ -50,17 +50,17 @@ class CommentController {
 
         })
     }
-    fun getListCommentByIdPost(idPost: String, callback: (List<CommentsExtend>?, String?) -> Unit) {
-        apiService.getComment(idPost).enqueue(object : Callback<List<CommentsExtend>> {
+    fun getListCommentByIdPost(idPost: String, callback: (MutableList<CommentsExtend>?, String?) -> Unit) {
+        apiService.getComment(idPost).enqueue(object : Callback<MutableList<CommentsExtend>> {
             override fun onResponse(
-                call: Call<List<CommentsExtend>>,
-                response: Response<List<CommentsExtend>>
+                call: Call<MutableList<CommentsExtend>>,
+                response: Response<MutableList<CommentsExtend>>
             ) {
                 val listCmt = response.body()
                 callback(listCmt, null)
             }
 
-            override fun onFailure(call: Call<List<CommentsExtend>>, t: Throwable) {
+            override fun onFailure(call: Call<MutableList<CommentsExtend>>, t: Throwable) {
                 callback(null, t.message)
             }
         })

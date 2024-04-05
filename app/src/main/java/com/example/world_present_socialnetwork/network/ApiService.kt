@@ -40,8 +40,8 @@ interface ApiService {
         @Body userChangePasswd: UserChangePasswd
     ): Call<User>
     //------------------------- Post -----------------------------//
-    @GET("api/getAllPost")
-    fun getAllPost(): Call<List<PostsExtend>>
+    @GET("api/getAllPost/{idUser}")
+    fun getAllPost(@Path("idUser") idUser: String): Call<List<PostsExtend>>
     @Multipart
     @POST("api/createPost")
     fun createPost(
@@ -58,6 +58,8 @@ interface ApiService {
     ): Call<Posts>
     @DELETE("api/post/{id}")
     fun deletePost(@Path("id") id: String): Call<Posts>
+    @GET("api/detailPost/{id}")
+    fun getDetailPost(@Path("id") id: String): Call<PostsExtend>
     //-------------------------- Like -----------------------------//
     @POST("api/like")
     fun like(@Body like: Like): Call<Like>
@@ -78,7 +80,7 @@ interface ApiService {
     @POST("api/comment")
     fun comment(@Body comments: Comments): Call<Comments>
     @GET("api/comment/{idPost}")
-    fun getComment(@Path("idPost") idPost: String): Call<List<CommentsExtend>>
+    fun getComment(@Path("idPost") idPost: String): Call<MutableList<CommentsExtend>>
     @PUT("api/comment/{id}")
     fun updateComment(
         @Path("id") id: String,

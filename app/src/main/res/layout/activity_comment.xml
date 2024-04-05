@@ -211,14 +211,29 @@ MAGNUM kết hợp với Việt Max tạo nên Bespoke Pleasure Box - tuyệt t�
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <EditText
-        android:id="@+id/ed_cmt"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Viết bình luận"
-        android:paddingStart="10dp"
-        android:elevation="10dp"
-        android:background="@drawable/shape_border_edt_cmt"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/ed_cmt"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:hint="Viết bình luận"
+            android:paddingStart="10dp"
+            android:elevation="10dp"
+            android:background="@drawable/shape_border_edt_cmt"
+            />
+        <ImageButton
+            android:id="@+id/img_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:backgroundTint="@color/white"
+            />
+    </LinearLayout>
+
 </LinearLayout>
