@@ -16,8 +16,8 @@ import java.io.File
 class PostController {
     private val apiService: ApiService = RetrofitClient.apiService
 
-    fun getAllPost(callback: (List<PostsExtend>?, String?) -> Unit){
-        apiService.getAllPost().enqueue(object : Callback<List<PostsExtend>>{
+    fun getAllPost(idUser: String,callback: (List<PostsExtend>?, String?) -> Unit){
+        apiService.getAllPost(idUser).enqueue(object : Callback<List<PostsExtend>>{
             override fun onResponse(call: Call<List<PostsExtend>>, response: Response<List<PostsExtend>>) {
                 if(response.isSuccessful){
                     val list = response.body()
@@ -57,6 +57,23 @@ class PostController {
             override fun onFailure(call: Call<Posts>, t: Throwable) {
                 callback(null, t.message)
             }
+        })
+    }
+    fun getDetailPost(idPost: String, callback: (PostsExtend?, String?) -> Unit){
+        apiService.getDetailPost(idPost).enqueue(object : Callback<PostsExtend>{
+            override fun onResponse(call: Call<PostsExtend>, response: Response<PostsExtend>) {
+                if (response.isSuccessful) {
+                    val detailPost = response.body()
+                    callback(detailPost, null)
+                } else {
+                    callback(null, response.errorBody()?.string() ?: "Lỗi")
+                }
+            }
+
+            override fun onFailure(call: Call<PostsExtend>, t: Throwable) {
+                callback(null, t.message)
+            }
+
         })
     }
 }

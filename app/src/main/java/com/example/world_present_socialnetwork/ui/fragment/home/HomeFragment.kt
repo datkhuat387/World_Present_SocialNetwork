@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
+import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.adapter.PostAdapter
 import com.example.world_present_socialnetwork.controllers.LikeController
 import com.example.world_present_socialnetwork.controllers.PostController
@@ -65,28 +68,57 @@ class HomeFragment : Fragment() {
                 idUser?.let { idUser ->
                     CoroutineScope(Dispatchers.Main).launch {
                         likePost(idUser, idPost)
-                        getAllPost() // Cập nhật danh sách bài viết
-                        postAdapter.notifyDataSetChanged() // Cập nhật giao diện
+                        getAllPost(idUser)
+                        postAdapter.notifyDataSetChanged()
                     }
                 }
                 Log.e("TAG main", "Like: $idUser")
                 Log.e("TAG main", "Like: $idPost")
             }
+
+            override fun onClickMenu(idPost: String,isOwner: Boolean,view:View) {
+                val popupMenu = PopupMenu(requireContext(),view)
+                Log.e("TAG", "isPost: $isOwner" )
+                popupMenu.inflate(R.menu.menu_post)
+                if(isOwner){
+                    popupMenu.menu.findItem(R.id.menu_update).isVisible = true
+                    popupMenu.menu.findItem(R.id.menu_delete).isVisible = true
+                    popupMenu.menu.findItem(R.id.menu_savePost).isVisible = true
+                }else{
+                    popupMenu.menu.findItem(R.id.menu_update).isVisible = false
+                    popupMenu.menu.findItem(R.id.menu_delete).isVisible = false
+                    popupMenu.menu.findItem(R.id.menu_savePost).isVisible = true
+                }
+                popupMenu.setOnMenuItemClickListener {
+                    when(it.itemId){
+                        R.id.menu_update ->{
+                            Toast.makeText(requireContext(), "update: $idPost", Toast.LENGTH_SHORT).show()
+                            return@setOnMenuItemClickListener true
+                        }
+                        R.id.menu_delete ->{
+                            Toast.makeText(requireContext(), "delete: $idPost", Toast.LENGTH_SHORT).show()
+                            return@setOnMenuItemClickListener true
+                        }
+                        else -> return@setOnMenuItemClickListener false
+                    }
+                }
+                popupMenu.show()
+            }
         })
         binding.swipeToRefresh.setOnRefreshListener {
             if(binding.swipeToRefresh.isRefreshing){
-                getAllPost()
+                idUser?.let { getAllPost(it) }
             }
         }
-        getAllPost()
+        idUser?.let { getAllPost(it) }
     }
-    private fun getAllPost(){
-        postController.getAllPost { list, error ->
+    private fun getAllPost(idUser:String){
+        postController.getAllPost(idUser) { list, error ->
             if (list != null) {
                 // Cập nhật danh sách bài viết trên postAdapter
                 postAdapter.updateDataPost(list as MutableList<PostsExtend>)
                 binding.swipeToRefresh.isRefreshing = false
-                idUser?.let { postAdapter.setUserId(it) }
+                idUser.let { postAdapter.setUserId(it) }
                 Log.e("TAG", "getPost" )
             } else {
                 Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
@@ -109,7 +141,7 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getAllPost()
+        idUser?.let { getAllPost(it) }
         Log.e("HomeFragment", "onResume" )
     }
     override fun onDestroyView() {

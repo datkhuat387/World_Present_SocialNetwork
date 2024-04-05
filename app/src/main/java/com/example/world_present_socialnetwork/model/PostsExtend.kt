@@ -3,6 +3,7 @@ package com.example.world_present_socialnetwork.model
 data class PostsExtend(
     var _id:String? = null,
     var idUser:User,
+    var isOwner: Boolean? = null,
     var content:String? = null,
     var image:String? = null,
     var video:String? = null,
