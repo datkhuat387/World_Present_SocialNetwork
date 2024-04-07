@@ -52,12 +52,12 @@ interface ApiService {
     @Multipart
     @PUT("api/updatePost/{id}")
     fun updatePost(
-        @Part("id") id: RequestBody,
+        @Path("id") id: String,
         @Part("content") content: RequestBody,
         @Part image: MultipartBody.Part?
     ): Call<Posts>
     @DELETE("api/post/{id}")
-    fun deletePost(@Path("id") id: String): Call<Posts>
+    fun deletePost(@Path("id") id: String): Call<Void>
     @GET("api/detailPost/{id}")
     fun getDetailPost(@Path("id") id: String): Call<PostsExtend>
     //-------------------------- Like -----------------------------//

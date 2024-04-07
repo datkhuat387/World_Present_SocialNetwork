@@ -38,21 +38,21 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     }
     interface PostListener{
         fun onClickComment(idPost: String)
-        fun onClickLike(idPost: String)
-        fun onClickMenu(idPost: String,isOwner: Boolean, view: View)
+        fun onClickLike(post: PostsExtend)
+        fun onClickMenu(post: PostsExtend,isOwner: Boolean, view: View)
     }
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         if(listPost.isNotEmpty()){
             val item = listPost[position]
 
             holder.binding.tvLike.setOnClickListener {
-                item._id?.let { it1 -> postlistener?.onClickLike(it1) }
+                item.let { it1 -> postlistener?.onClickLike(it1) }
             }
             holder.binding.tvComment.setOnClickListener {
                 item._id?.let { it1 -> postlistener?.onClickComment(it1) }
             }
             holder.binding.icEdit.setOnClickListener {
-                item._id?.let { it1 -> item.isOwner?.let { it2 ->
+                item.let { it1 -> item.isOwner?.let { it2 ->
                     postlistener?.onClickMenu(it1,
                         it2,holder.binding.icEdit)
                 } }
@@ -77,8 +77,11 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                     imagePost.layoutParams = layoutParams
                 }
                 /// check like post ?
-                val isLikedIdUSer = item.like?.any { like -> like.idUser._id == currentIdUser}
-                if(isLikedIdUSer == true){
+//                val isLikedIdUSer = item.like?.any { like -> like.idUser._id == currentIdUser}
+                if(item.isLiked == true){
+                    tvCountLike.visibility = View.VISIBLE
+                    tvCountLike.text = item.likeCount.toString()+" lượt thích"
+
                     tvLike.setTextColor(ContextCompat.getColor(holder.itemView.context,R.color.blue))
                     tvLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.like,0,0,0)
                 }else{
@@ -91,14 +94,14 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 tvName.text = item.idUser.fullname
                 /// like
                 if(item.likeCount == 0){
-                    tvCountLike.visibility = View.GONE
+                    tvCountLike.visibility = View.INVISIBLE
                 }else{
                     tvCountLike.visibility = View.VISIBLE
                     tvCountLike.text = item.likeCount.toString()+" lượt thích"
                 }
                 /// cmt
                 if(item.commentCount == 0){
-                    tvCountCmt.visibility = View.GONE
+                    tvCountCmt.visibility = View.INVISIBLE
                 }else{
                     tvCountCmt.visibility = View.VISIBLE
                     tvCountCmt.text = item.commentCount.toString()+" bình luận"

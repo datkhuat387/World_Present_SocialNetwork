@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,17 +18,15 @@ import com.example.world_present_socialnetwork.databinding.FragmentHomeBinding
 import com.example.world_present_socialnetwork.model.PostsExtend
 import com.example.world_present_socialnetwork.ui.comment.CommentActivity
 import com.example.world_present_socialnetwork.ui.post.addPost.AddPostActivity
+import com.example.world_present_socialnetwork.ui.post.updatePost.UpdatePostActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import okhttp3.internal.notify
-
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var postAdapter: PostAdapter
+    private var listPost: MutableList<PostsExtend> = mutableListOf()
     private val postController = PostController()
     private val likeController = LikeController()
     private var idUser:String? = null
@@ -49,7 +46,10 @@ class HomeFragment : Fragment() {
 
         val sharedPreferences = activity?.getSharedPreferences("profile", Context.MODE_PRIVATE)
         idUser = sharedPreferences?.getString("id","")
-
+        binding.shimmerFLHome.visibility = View.VISIBLE
+        binding.shimmerFLHome.startShimmer()
+        idUser?.let { getAllPost(it) }
+//        shimmer.stopShimmer()
         binding.imgAddPost.setOnClickListener {
             val intent = Intent(requireContext(),AddPostActivity::class.java)
             startActivity(intent)
@@ -64,19 +64,17 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
 
-            override fun onClickLike(idPost: String) {
+            override fun onClickLike(post: PostsExtend) {
                 idUser?.let { idUser ->
                     CoroutineScope(Dispatchers.Main).launch {
-                        likePost(idUser, idPost)
-                        getAllPost(idUser)
-                        postAdapter.notifyDataSetChanged()
+                        postAdapter.setUserId(idUser)
+                        likePost(idUser,post)
                     }
                 }
                 Log.e("TAG main", "Like: $idUser")
-                Log.e("TAG main", "Like: $idPost")
+                Log.e("TAG main", "Like: ${post._id}")
             }
-
-            override fun onClickMenu(idPost: String,isOwner: Boolean,view:View) {
+            override fun onClickMenu(post: PostsExtend,isOwner: Boolean,view:View) {
                 val popupMenu = PopupMenu(requireContext(),view)
                 Log.e("TAG", "isPost: $isOwner" )
                 popupMenu.inflate(R.menu.menu_post)
@@ -92,11 +90,18 @@ class HomeFragment : Fragment() {
                 popupMenu.setOnMenuItemClickListener {
                     when(it.itemId){
                         R.id.menu_update ->{
-                            Toast.makeText(requireContext(), "update: $idPost", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(requireContext(),UpdatePostActivity::class.java)
+                            intent.putExtra("idPost",post._id)
+                            startActivity(intent)
+                            Toast.makeText(requireContext(), "update: ${post._id}", Toast.LENGTH_SHORT).show()
                             return@setOnMenuItemClickListener true
                         }
                         R.id.menu_delete ->{
-                            Toast.makeText(requireContext(), "delete: $idPost", Toast.LENGTH_SHORT).show()
+                            removePost(post)
+                            return@setOnMenuItemClickListener true
+                        }
+                        R.id.menu_savePost ->{
+                            Toast.makeText(requireContext(), "savePost: ${post._id}", Toast.LENGTH_SHORT).show()
                             return@setOnMenuItemClickListener true
                         }
                         else -> return@setOnMenuItemClickListener false
@@ -110,31 +115,55 @@ class HomeFragment : Fragment() {
                 idUser?.let { getAllPost(it) }
             }
         }
-        idUser?.let { getAllPost(it) }
     }
     private fun getAllPost(idUser:String){
         postController.getAllPost(idUser) { list, error ->
-            if (list != null) {
-                // Cập nhật danh sách bài viết trên postAdapter
-                postAdapter.updateDataPost(list as MutableList<PostsExtend>)
-                binding.swipeToRefresh.isRefreshing = false
-                idUser.let { postAdapter.setUserId(it) }
-                Log.e("TAG", "getPost" )
-            } else {
-                Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
-                Log.e("TAG", "getPost: $error" )
+            activity?.runOnUiThread {
+                if (list != null) {
+                    postAdapter.setUserId(idUser)
+                    listPost = list.toMutableList()
+                    postAdapter.updateDataPost(listPost)
+                    binding.swipeToRefresh.isRefreshing = false
+                    Log.e("TAG", "getPost" )
+                } else {
+                    Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "getPost: $error" )
+                }
             }
         }
     }
-    private fun likePost(idUser:String,idPost:String){
-        likeController.likePost(idUser,idPost){like,error->
-            if(like!=null){
-                Toast.makeText(requireContext(), "Bạn đã thích bài viết.", Toast.LENGTH_SHORT).show()
-                Log.e("TAG", "Like: $like" )
-                postAdapter.notifyDataSetChanged()
-            }else{
-                Toast.makeText(requireContext(), "Đã xảy ra lỗi cle: $error", Toast.LENGTH_SHORT).show()
-                Log.e("TAG", "Like: $error" )
+    private fun likePost(idUser:String,post: PostsExtend){
+        post._id?.let {
+            likeController.likePost(idUser, it){ like, error->
+                activity?.runOnUiThread {
+                    if(like!=null){
+                        val updateLike = listPost.find { it._id == post._id }
+                        updateLike?.isLiked = true
+                        updateLike?.likeCount = updateLike?.likeCount?.plus(1)
+                        postAdapter.updateDataPost(listPost)
+                        Toast.makeText(requireContext(), "Bạn đã thích bài viết.", Toast.LENGTH_SHORT).show()
+                        Log.e("TAG", "Like: $like" )
+                    }else{
+                        Toast.makeText(requireContext(), "Đã xảy ra lỗi cle: $error", Toast.LENGTH_SHORT).show()
+                        Log.e("TAG", "Like: $error" )
+                    }
+                }
+            }
+        }
+    }
+    private fun removePost(post: PostsExtend){
+        post._id?.let {
+            postController.removePost(it){ removePost, error->
+                if(removePost!=null){
+                    listPost.remove(post)
+                    postAdapter.updateDataPost(listPost)
+                    Toast.makeText(requireContext(), "Đã xóa bài viết.", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "removePost: $removePost" )
+                }else{
+                    Toast.makeText(requireContext(), "$error .", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "removePost: $error" )
+                }
+
             }
         }
     }
