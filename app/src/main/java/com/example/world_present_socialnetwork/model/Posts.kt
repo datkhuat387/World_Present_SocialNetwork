@@ -4,6 +4,7 @@ data class Posts(
     var _id:String? = null,
     var idUser:String? = null,
     var isOwner: Boolean? = null,
+    var isLiked: Boolean? = null,
     var content:String? = null,
     var image:String? = null,
     var video:String? = null,

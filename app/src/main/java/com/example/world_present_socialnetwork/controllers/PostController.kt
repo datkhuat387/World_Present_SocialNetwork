@@ -59,6 +59,50 @@ class PostController {
             }
         })
     }
+    fun updatePost(idPost: String, content: String, image: File?, callback: (Posts?, String?) -> Unit) {
+        val idPostPart = idPost.toRequestBody("text/plain".toMediaTypeOrNull())
+        val contentPart = content.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        val imagePart = if (image != null) {
+            val requestFile = image.asRequestBody("image/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("image", image.name, requestFile)
+        } else {
+            null
+        }
+
+        apiService.updatePost(idPost, contentPart, imagePart).enqueue(object : Callback<Posts> {
+            override fun onResponse(call: Call<Posts>, response: Response<Posts>) {
+                if (response.isSuccessful) {
+                    val post = response.body()
+                    callback(post, null)
+                } else {
+                    callback(null, response.errorBody()?.string() ?: "Lỗi")
+                }
+            }
+
+            override fun onFailure(call: Call<Posts>, t: Throwable) {
+                callback(null, t.message)
+            }
+        })
+    }
+    fun removePost(idPost: String, callback: (String?, String?) -> Unit){
+        apiService.deletePost(idPost).enqueue(object : Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    callback("Đã xóa bài viết", null)
+                } else {
+                    callback(null, response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+
+        })
+    }
+
     fun getDetailPost(idPost: String, callback: (PostsExtend?, String?) -> Unit){
         apiService.getDetailPost(idPost).enqueue(object : Callback<PostsExtend>{
             override fun onResponse(call: Call<PostsExtend>, response: Response<PostsExtend>) {
