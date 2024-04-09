@@ -47,6 +47,9 @@ class CommentActivity : AppCompatActivity() {
         binding.rcvListCmt.adapter = commentAdapter
         binding.rcvListCmt.layoutManager = GridLayoutManager(this,1)
 
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
         idPost?.let { getDetailPost(it) }
         val textWatcher = object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

@@ -121,8 +121,9 @@
         android:layout_marginTop="72dp"
         android:background="@drawable/bg_button_color_primary"
         android:text="Đăng ký"
+        android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_fullname" />

@@ -19,6 +19,7 @@ import com.example.world_present_socialnetwork.model.PostsExtend
 import com.example.world_present_socialnetwork.ui.comment.CommentActivity
 import com.example.world_present_socialnetwork.ui.post.addPost.AddPostActivity
 import com.example.world_present_socialnetwork.ui.post.updatePost.UpdatePostActivity
+import com.example.world_present_socialnetwork.ui.user.profile.ProfileActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -108,6 +109,12 @@ class HomeFragment : Fragment() {
                     }
                 }
                 popupMenu.show()
+            }
+
+            override fun onClickProfile(idUserAt: String) {
+                val intent = Intent(requireContext(), ProfileActivity::class.java)
+                intent.putExtra("idUserAt",idUserAt)
+                startActivity(intent)
             }
         })
         binding.swipeToRefresh.setOnRefreshListener {

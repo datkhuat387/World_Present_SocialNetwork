@@ -6,14 +6,13 @@
     <color name="blue">#2491CB</color>
     <color name="red">#F44336</color>
     <color name="gray">#F3F3F3</color>
-    <color name="gray_2">#828282</color>
-    <color name="gray_3">#6A6A6A</color>
-    <color name="gray_4">#d9d9d9</color>
+    <color name="gray_4">#ECECEC</color>
     <color name="gray_5">#828282</color>
     <color name="gray_6">#EDEDED</color>
-    <color name="gray_7">#D6D6D6</color>
+<!--    <color name="gray_7">#D6D6D6</color>-->
     <color name="cmt_1">#F1ECEC</color>
     <color name="blue_2">#4081BBDA</color>
+    <color name="blue_btn_bg">#408EC0DA</color>
     <color name="green">#4CAF50</color>
     <color name="orange">#FFC107</color>
 </resources>

@@ -52,8 +52,9 @@
             android:layout_height="45dp"
             android:background="@drawable/shape_btn_add_post"
             android:text="Lưu"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
