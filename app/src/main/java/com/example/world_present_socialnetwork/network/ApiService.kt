@@ -9,6 +9,7 @@ import com.example.world_present_socialnetwork.model.Posts
 import com.example.world_present_socialnetwork.model.PostsExtend
 import com.example.world_present_socialnetwork.model.User
 import com.example.world_present_socialnetwork.model.UserChangePasswd
+import com.example.world_present_socialnetwork.model.UserInfo
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -39,6 +40,11 @@ interface ApiService {
         @Path("idUser") idUser: User,
         @Body userChangePasswd: UserChangePasswd
     ): Call<User>
+    //------------------------ UserInfo --------------------------//
+    @POST("api/createUserInfo/{idUser}")
+    fun createUserInfo(@Path("idUser") idUser: String): Call<UserInfo>
+    @GET("api/userInfo/{idUser}")
+    fun getUserInfo(@Path("idUser") idUser: String): Call<UserInfo>
     //------------------------- Post -----------------------------//
     @GET("api/getAllPost/{idUser}")
     fun getAllPost(@Path("idUser") idUser: String): Call<List<PostsExtend>>

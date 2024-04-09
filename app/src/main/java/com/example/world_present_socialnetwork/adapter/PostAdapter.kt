@@ -40,10 +40,18 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
         fun onClickComment(idPost: String)
         fun onClickLike(post: PostsExtend)
         fun onClickMenu(post: PostsExtend,isOwner: Boolean, view: View)
+        fun onClickProfile(idUserAt: String)
     }
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         if(listPost.isNotEmpty()){
             val item = listPost[position]
+
+            holder.binding.imageAvt.setOnClickListener {
+                item.idUser._id?.let { it1 -> postlistener?.onClickProfile(it1) }
+            }
+            holder.binding.tvName.setOnClickListener {
+                item.idUser._id?.let { it1 -> postlistener?.onClickProfile(it1) }
+            }
 
             holder.binding.tvLike.setOnClickListener {
                 item.let { it1 -> postlistener?.onClickLike(it1) }
@@ -106,12 +114,12 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                     tvCountCmt.visibility = View.VISIBLE
                     tvCountCmt.text = item.commentCount.toString()+" bình luận"
                 }
-                /// avatar user
-//                Glide.with(holder.itemView.context)
-//                    .load(Common.baseURL+item.idUser.avatar)
-//                    .placeholder(R.drawable.avatar_profile)
-//                    .error(R.drawable.avatar_profile)
-//                    .into(imageAvt)
+                // avatar user
+                Glide.with(holder.itemView.context)
+                    .load(Common.baseURL+item.idUser.avatar)
+                    .placeholder(R.drawable.avatar_profile)
+                    .error(R.drawable.avatar_profile)
+                    .into(imageAvt)
             }
         }
     }
