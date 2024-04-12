@@ -2,6 +2,8 @@ package com.example.world_present_socialnetwork.network
 
 import com.example.world_present_socialnetwork.model.Comments
 import com.example.world_present_socialnetwork.model.CommentsExtend
+import com.example.world_present_socialnetwork.model.Friendships
+import com.example.world_present_socialnetwork.model.FriendshipsExtend
 import com.example.world_present_socialnetwork.model.Like
 import com.example.world_present_socialnetwork.model.LikeExtend
 import com.example.world_present_socialnetwork.model.LoginRequest
@@ -73,15 +75,6 @@ interface ApiService {
     fun removeLike(@Path("id") id: String): Call<LikeExtend>
     @GET("api/listLikeByIdPost/{idPost}")
     fun getListLikeByIdPost(@Path("idPost") idPost: String): Call<List<LikeExtend>>
-
-//    @POST("api/createPost")
-////    fun createPost(@Body posts: Posts): Call<Posts>
-//    @Multipart
-//    fun createPost(
-//        @Part("idUser") idUser: String,
-//        @Part("content") content: String,
-//        @Part image: MultipartBody.Part?
-//    ): Call<RequestBody>
     //-------------------------- Comment ----------------------------//
     @POST("api/comment")
     fun comment(@Body comments: Comments): Call<Comments>
@@ -94,4 +87,17 @@ interface ApiService {
     ): Call<Comments>
     @DELETE("api/comment/{id}")
     fun deleteComment(@Path("id") id: String): Call<Comments>
+    //------------------------- Friend ------------------------------//
+    @POST("api/addFriend")
+    fun addFriend(@Body friendships: Friendships): Call<Friendships>
+    @DELETE("api/unFriend/{idUser}")
+    fun unFriend(@Path("idUser") idUser: String): Call<Void>
+    @GET("api/friend/{idUser}/{idFriend}")
+    fun friend(@Path("idUser") idUser: String,
+               @Path("idFriend") idFriend: String
+    ): Call<Friendships>
+    @GET("api/listFriendWaitConfirm/{idUser}")
+    fun getListWaitConFirm(@Path("idUser") idUser: String): Call<MutableList<FriendshipsExtend>>
+    @GET("api/listFriendIsWaitConfirm/{idUser}")
+    fun getListIsWaitConFirm(@Path("idUser") idUser: String): Call<MutableList<FriendshipsExtend>>
 }

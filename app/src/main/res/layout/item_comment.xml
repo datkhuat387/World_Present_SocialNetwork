@@ -25,6 +25,7 @@
             android:scaleType="centerCrop"
             android:layout_marginEnd="10dp"
             android:src="@drawable/avatar_profile"
+            app:shapeAppearanceOverlay="@style/round_avt_cirle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
