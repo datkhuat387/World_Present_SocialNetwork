@@ -220,7 +220,7 @@
                 android:id="@+id/rcv_list_cmt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="485sp"
+                android:minHeight="470sp"
                 tools:listitem="@layout/item_comment"
                 tools:itemCount="1"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.fragment.friend.FriendFragment">
 
@@ -17,12 +18,96 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:elevation="2dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        />
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/gray"
         />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="always"
+        >
+        <LinearLayout
+            android:id="@+id/lnr_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:id="@+id/lnr_see_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lời mời kết bạn"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/see_all_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xem tất cả"
+                    android:textSize="18sp"
+                    android:textColor="@color/blue_3"
+                    />
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_confirm_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_confirm_friend"
+                android:paddingHorizontal="10dp"
+                tools:itemCount="3"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="1"
+                />
+            <LinearLayout
+                android:id="@+id/lnr_see_all_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Đã gửi lời mời"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/see_all_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xem tất cả"
+                    android:textSize="18sp"
+                    android:textColor="@color/blue_3"
+                    />
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_wait_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_wait_confirm"
+                android:paddingHorizontal="10dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="1"
+                tools:itemCount="3"
+                />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -15,6 +15,7 @@ import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.UserController
 import com.example.world_present_socialnetwork.databinding.FragmentMenuBinding
 import com.example.world_present_socialnetwork.ui.setting.SettingActivity
+import com.example.world_present_socialnetwork.utils.Common
 
 class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
@@ -42,7 +43,7 @@ class MenuFragment : Fragment() {
                     binding.tvFullname.text = user.fullname
 
                     Glide.with(requireContext())
-                        .load(user.avatar)
+                        .load(Common.baseURL+user.avatar)
                         .placeholder(R.drawable.avatar_profile)
                         .error(R.drawable.avatar_profile)
                         .into(binding.imgAvatar)

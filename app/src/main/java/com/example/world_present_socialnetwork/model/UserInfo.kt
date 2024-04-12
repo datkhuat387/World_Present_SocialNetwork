@@ -5,7 +5,7 @@ data class UserInfo(
     var isActive: Boolean? = null,
     var dateOfBirth: String? = null,
     var highSchool: String? = null,
-    var college_university: String? = null,
+    var collegeUniversity: String? = null,
     var workingAt: String? = null,
     var provinceCityAt: String? = null,
     var postSave: List<String>? = null,
