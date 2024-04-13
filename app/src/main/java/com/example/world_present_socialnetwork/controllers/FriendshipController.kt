@@ -101,4 +101,37 @@ class FriendshipController {
 
         })
     }
+    fun notConFirmFriend(id: String, callback: (String?,String?) -> Unit){
+        apiService.notConfirmFriend(id).enqueue(object : Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+                    callback("Đã xóa lời mời", null)
+                }else{
+                    callback(null, response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                callback(null, t.message)
+            }
+        })
+
+    }
+    fun confirmFriend(id: String, callback: (Friendships?, String?) -> Unit){
+        apiService.confirmFriend(id).enqueue(object : Callback<Friendships>{
+            override fun onResponse(call: Call<Friendships>, response: Response<Friendships>) {
+                if(response.isSuccessful){
+                    val friend = response.body()
+                    callback(friend, null)
+                }else{
+                    callback(null, response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<Friendships>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+        })
+    }
 }

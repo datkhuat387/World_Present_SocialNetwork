@@ -13,6 +13,7 @@ import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.adapter.ViewPager2Adapter
 import com.example.world_present_socialnetwork.controllers.FriendshipController
 import com.example.world_present_socialnetwork.controllers.UserController
+import com.example.world_present_socialnetwork.controllers.UserInfoController
 import com.example.world_present_socialnetwork.databinding.ActivityProfileBinding
 import com.example.world_present_socialnetwork.ui.user.profile.fragment.PhotoProfileFragment
 import com.example.world_present_socialnetwork.ui.user.profile.fragment.PostProfileFragment
@@ -29,6 +30,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var viewPager2Adapter: ViewPager2Adapter
     private val userController = UserController()
     private val friendshipController = FriendshipController()
+    private val userInfoController = UserInfoController()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -38,6 +40,7 @@ class ProfileActivity : AppCompatActivity() {
         idUser = sharedPreferences?.getString("id","")
         idUserAt = intent.getStringExtra("idUserAt")
         idUserAt?.let { getUser(it) }
+        idUserAt?.let { getUserInfo(it) }
         idUser?.let { idUserAt?.let { it1 -> friend(it, it1) } }
         binding.imgBack.setOnClickListener {
             finish()
@@ -61,6 +64,20 @@ class ProfileActivity : AppCompatActivity() {
                     .placeholder(R.drawable.avatar_profile)
                     .error(R.drawable.avatar_profile)
                     .into(binding.imgAvatar)
+            }else{
+                Toast.makeText(this@ProfileActivity, "$error", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun getUserInfo(idUser: String){
+        userInfoController.getUserInfo(idUser){userInfo, error->
+            if(userInfo!=null){
+                Glide.with(applicationContext)
+                    .load(Common.baseURL+userInfo.coverImage)
+                    .placeholder(R.drawable.cover_image_default)
+                    .error(R.drawable.cover_image_default)
+                    .into(binding.imgCover)
+                Toast.makeText(this@ProfileActivity, "${userInfo.isActive}", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(this@ProfileActivity, "$error", Toast.LENGTH_SHORT).show()
             }

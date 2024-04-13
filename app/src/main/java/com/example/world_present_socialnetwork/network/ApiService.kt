@@ -12,6 +12,7 @@ import com.example.world_present_socialnetwork.model.PostsExtend
 import com.example.world_present_socialnetwork.model.User
 import com.example.world_present_socialnetwork.model.UserChangePasswd
 import com.example.world_present_socialnetwork.model.UserInfo
+import com.example.world_present_socialnetwork.model.UserInfoExtend
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -46,7 +47,7 @@ interface ApiService {
     @POST("api/createUserInfo/{idUser}")
     fun createUserInfo(@Path("idUser") idUser: String): Call<UserInfo>
     @GET("api/userInfo/{idUser}")
-    fun getUserInfo(@Path("idUser") idUser: String): Call<UserInfo>
+    fun getUserInfo(@Path("idUser") idUser: String): Call<UserInfoExtend>
     //------------------------- Post -----------------------------//
     @GET("api/getAllPost/{idUser}")
     fun getAllPost(@Path("idUser") idUser: String): Call<List<PostsExtend>>
@@ -100,4 +101,8 @@ interface ApiService {
     fun getListWaitConFirm(@Path("idUser") idUser: String): Call<MutableList<FriendshipsExtend>>
     @GET("api/listFriendIsWaitConfirm/{idUser}")
     fun getListIsWaitConFirm(@Path("idUser") idUser: String): Call<MutableList<FriendshipsExtend>>
+    @DELETE("api/notConfirmAddFriend/{id}")
+    fun notConfirmFriend(@Path("id") id: String): Call<Void>
+    @PUT("api/confirmAddFriend/{id}")
+    fun confirmFriend(@Path("id") id: String): Call<Friendships>
 }
