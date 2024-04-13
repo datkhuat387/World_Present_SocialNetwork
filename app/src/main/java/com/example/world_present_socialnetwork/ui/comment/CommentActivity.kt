@@ -122,6 +122,11 @@ class CommentActivity : AppCompatActivity() {
         postController.getDetailPost(idPost){detailPost, error->
             runOnUiThread {
                 if(detailPost!=null){
+                    Glide.with(this)
+                        .load(Common.baseURL+detailPost.idUser.avatar)
+                        .placeholder(R.drawable.avatar_profile)
+                        .error(R.drawable.avatar_profile)
+                        .into(binding.imageAvt)
                     binding.tvName.text = detailPost.idUser.fullname
                     binding.tvDate.text = detailPost.updateAt?.let { Common.formatDateTime(it) }
                     binding.tvContent.text = detailPost.content

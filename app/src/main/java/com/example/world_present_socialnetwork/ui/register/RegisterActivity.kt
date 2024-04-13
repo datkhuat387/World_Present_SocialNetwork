@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.UserController
+import com.example.world_present_socialnetwork.controllers.UserInfoController
 import com.example.world_present_socialnetwork.databinding.ActivityRegisterBinding
 import com.example.world_present_socialnetwork.model.User
 
@@ -14,6 +15,8 @@ import com.example.world_present_socialnetwork.model.User
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private val userController = UserController()
+    private val userInfoController = UserInfoController()
+    private var idUser: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,6 +51,8 @@ class RegisterActivity : AppCompatActivity() {
             }
             userController.register(email,password,fullname){user, error ->
                 if(user!=null){
+                    idUser = user._id
+                    idUser?.let { it1 -> createUserInfo(it1) }
                     Toast.makeText(
                         this@RegisterActivity,
                         "Đăng ký thành công",
@@ -55,6 +60,15 @@ class RegisterActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this@RegisterActivity,"$error", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+    }
+    private fun createUserInfo(idUser: String){
+        userInfoController.createUserInfo(idUser){userInfo, error->
+            if(userInfo!=null){
+                Toast.makeText(this@RegisterActivity,"Đã tạo UserInfo", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this@RegisterActivity,"$error", Toast.LENGTH_SHORT).show()
             }
         }
     }

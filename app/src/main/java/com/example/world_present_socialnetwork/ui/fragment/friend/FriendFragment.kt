@@ -13,6 +13,7 @@ import com.example.world_present_socialnetwork.adapter.CFriendAdapter
 import com.example.world_present_socialnetwork.adapter.WFriendAdapter
 import com.example.world_present_socialnetwork.controllers.FriendshipController
 import com.example.world_present_socialnetwork.databinding.FragmentFriendBinding
+import com.example.world_present_socialnetwork.model.Friendships
 import com.example.world_present_socialnetwork.model.FriendshipsExtend
 import com.example.world_present_socialnetwork.ui.friend.ConfirmFriendActivity
 import com.example.world_present_socialnetwork.ui.friend.WaitFriendActivity
@@ -23,8 +24,8 @@ class FriendFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var cFriendAdapter: CFriendAdapter
     private lateinit var wFriendAdapter: WFriendAdapter
-    private var listCFriend: MutableList<FriendshipsExtend>? = mutableListOf()
-    private var listWFriend: MutableList<FriendshipsExtend>? = mutableListOf()
+    private var listCFriend: MutableList<FriendshipsExtend> = mutableListOf()
+    private var listWFriend: MutableList<FriendshipsExtend> = mutableListOf()
     private var friendshipController = FriendshipController()
     private var idUser:String? = null
     override fun onCreateView(
@@ -58,11 +59,11 @@ class FriendFragment : Fragment() {
         }
         cFriendAdapter.setListener(object : CFriendAdapter.CFriendListener{
             override fun onClickConfirm(friendshipsExtend: FriendshipsExtend) {
-                Toast.makeText(context, "Xác nhận", Toast.LENGTH_SHORT).show()
+                confirmFriend(friendshipsExtend)
             }
 
             override fun onClickDelete(friendshipsExtend: FriendshipsExtend) {
-                Toast.makeText(context, "Xóa", Toast.LENGTH_SHORT).show()
+                notConfirmFriend(friendshipsExtend)
             }
 
             override fun onClickProfile(idUserAt: String) {
@@ -74,6 +75,7 @@ class FriendFragment : Fragment() {
         })
         wFriendAdapter.setListener(object : WFriendAdapter.WFriendListener{
             override fun onClickCancel(friendshipsExtend: FriendshipsExtend) {
+                notConfirmWFriend(friendshipsExtend)
                 Toast.makeText(context, "Hủy lời mời", Toast.LENGTH_SHORT).show()
             }
 
@@ -109,7 +111,49 @@ class FriendFragment : Fragment() {
                 wFriendAdapter.updateWFriend(listWFriend!!)
             }else{
                 Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
-                Log.e("TAG", "getListIsWait: $error" )
+                Log.e("TAG", "getIsListIsWait: $error" )
+            }
+        }
+    }
+    private fun notConfirmFriend(friendshipsExtend: FriendshipsExtend){
+        friendshipsExtend._id?.let {
+            friendshipController.notConFirmFriend(it){ friend, error->
+                if(friend!=null){
+                    listCFriend.remove(friendshipsExtend)
+                    cFriendAdapter.updateCFriend(listCFriend)
+                    Toast.makeText(context, "Đã xóa", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "notConfirm: $error" )
+                }
+            }
+        }
+    }
+    private fun notConfirmWFriend(friendshipsExtend: FriendshipsExtend){
+        friendshipsExtend._id?.let {
+            friendshipController.notConFirmFriend(it){ friend, error->
+                if(friend!=null){
+                    listWFriend.remove(friendshipsExtend)
+                    wFriendAdapter.updateWFriend(listWFriend)
+                    Toast.makeText(context, "Đã xóa", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "notConfirm: $error" )
+                }
+            }
+        }
+    }
+    private fun confirmFriend(friendshipsExtend: FriendshipsExtend){
+        friendshipsExtend._id?.let {
+            friendshipController.confirmFriend(it){ friend, error->
+                if(friend!=null){
+                    listCFriend.remove(friendshipsExtend)
+                    cFriendAdapter.updateCFriend(listCFriend)
+                    Toast.makeText(context, "Đã chấp nhận lời mời kết bạn", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "confirm: $error" )
+                }
             }
         }
     }
