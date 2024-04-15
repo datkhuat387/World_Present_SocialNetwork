@@ -16,6 +16,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.user.postSave.PostSaveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.update.UpdateFullnameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.update.UpdateUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.friend.WaitFriendActivity"
             android:exported="false" />
         <activity

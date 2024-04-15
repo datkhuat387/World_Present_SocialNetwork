@@ -1,17 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.setting.SettingActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lnr_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Setting"
-        android:textSize="30dp"
+        android:orientation="horizontal"
+        android:paddingVertical="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_back" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Cài đặt"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/img_back2"
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_back" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_btn_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đổi tên"
+        android:drawableStart="@drawable/ic_update_name"
+        android:drawablePadding="10dp"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_4"
+        android:layout_marginHorizontal="10dp"
+        />
+    <TextView
+        android:id="@+id/tv_btn_email_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thay đổi Email, số điện thoại"
+        android:drawableStart="@drawable/ic_person_2"
+        android:textSize="16sp"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_4"
+        android:layout_marginHorizontal="10dp"
+        />
+    <TextView
+        android:id="@+id/tv_btn_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thay đổi mật khẩu"
+        android:drawableStart="@drawable/ic_update_password"
+        android:textSize="16sp"
+        android:drawablePadding="10dp"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_4"
+        android:layout_marginHorizontal="10dp"
+        />
+</LinearLayout>

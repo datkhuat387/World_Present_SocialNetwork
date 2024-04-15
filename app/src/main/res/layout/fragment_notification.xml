@@ -15,7 +15,7 @@
         android:background="@color/white"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:elevation="2dp"
         android:textStyle="bold" />
     <TextView

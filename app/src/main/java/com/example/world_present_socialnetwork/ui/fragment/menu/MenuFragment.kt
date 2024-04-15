@@ -15,6 +15,7 @@ import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.UserController
 import com.example.world_present_socialnetwork.databinding.FragmentMenuBinding
 import com.example.world_present_socialnetwork.ui.setting.SettingActivity
+import com.example.world_present_socialnetwork.ui.user.postSave.PostSaveActivity
 import com.example.world_present_socialnetwork.utils.Common
 
 class MenuFragment : Fragment() {
@@ -56,7 +57,11 @@ class MenuFragment : Fragment() {
             val intent = Intent(context,SettingActivity::class.java)
             startActivity(intent)
         }
-        binding.btnLogOut.setOnClickListener {
+        binding.tvPostSave.setOnClickListener {
+            val intent = Intent(context, PostSaveActivity::class.java)
+            startActivity(intent)
+        }
+        binding.tvLogOut.setOnClickListener {
             (activity as? MainActivity)?.performLogout()
         }
     }
