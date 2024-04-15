@@ -2,11 +2,16 @@ package com.example.world_present_socialnetwork.controllers
 
 import com.example.world_present_socialnetwork.model.LoginRequest
 import com.example.world_present_socialnetwork.model.User
+import com.example.world_present_socialnetwork.model.UserChangePasswd
 import com.example.world_present_socialnetwork.network.ApiService
 import com.example.world_present_socialnetwork.network.RetrofitClient
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class UserController {
     private val apiService: ApiService = RetrofitClient.apiService
@@ -55,6 +60,101 @@ class UserController {
                     callback(user, null)
                 }else{
                     callback(null,response.errorBody()?.string() ?: "Lỗi thông tin tài khoản" )
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+        })
+    }
+    fun updateUser(idUser: String, email: String, phone: String, callback: (User?, String?) -> Unit){
+        val user = User(
+            null,
+            email,
+            phone,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null)
+        apiService.updateUser(idUser,user).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful){
+                    val user = response.body()
+                    callback(user, null)
+                }else{
+                    callback(null,response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+        })
+    }
+    fun updateFullname(idUser: String, fullname: String, callback: (User?, String?) -> Unit){
+        val user = User(
+            null,
+           null,
+            null,
+            null,
+            fullname,
+            null,
+            null,
+            null,
+            null,
+            null)
+        apiService.updateFullname(idUser, user).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful){
+                    val user = response.body()
+                    callback(user, null)
+                }else{
+                    callback(null,response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                callback(null, t.message)
+            }
+        })
+    }
+    fun updateAvatar(idUser: String, avatar: File?, callback: (User?, String?) -> Unit){
+        val avatarPart = if (avatar != null) {
+            val requestFile = avatar.asRequestBody("image/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("image", avatar.name, requestFile)
+        } else {
+            null
+        }
+        apiService.updateAvatar(idUser, avatarPart).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful){
+                    val user = response.body()
+                    callback(user, null)
+                }else{
+                    callback(null,response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                callback(null, t.message)
+            }
+        })
+    }
+    fun changePassword(idUser: String, currentPassword: String, newPassword: String, callback: (User?, String?) -> Unit){
+        val changePasswd = UserChangePasswd(currentPassword, newPassword)
+        apiService.userChangePasswd(idUser,changePasswd).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful){
+                    val user = response.body()
+                    callback(user, null)
+                }else{
+                    callback(null,response.errorBody()?.string())
                 }
             }
 

@@ -44,7 +44,7 @@ class WFriendAdapter: RecyclerView.Adapter<WFriendAdapter.WFriendViewHolder>() {
             }
             holder.binding.apply {
                 Glide.with(holder.itemView.context)
-                    .load(Common.baseURL+ item.idUser!!.avatar)
+                    .load(Common.baseURL+ item.idFriend!!.avatar)
                     .placeholder(R.drawable.avatar_profile)
                     .error(R.drawable.avatar_profile)
                     .into(imageAvt)

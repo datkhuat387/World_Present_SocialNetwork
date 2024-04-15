@@ -35,14 +35,23 @@ interface ApiService {
     fun getUser(@Path("userId") userId: String): Call<User>
     @PUT("api/user/{idUser}")
     fun updateUser(
-        @Path("idUser") idUser: User,
+        @Path("idUser") idUser: String,
         @Body user: User
     ): Call<User>
     @PUT("api/userChangePasswd/{idUser}")
     fun userChangePasswd(
-        @Path("idUser") idUser: User,
+        @Path("idUser") idUser: String,
         @Body userChangePasswd: UserChangePasswd
     ): Call<User>
+    @PUT("api/updateFullname/{idUser}")
+    fun updateFullname(
+        @Path("idUser") idUser: String,
+        @Body user: User): Call<User>
+    @Multipart
+    @PUT("api/updateAvatar/{idUser}")
+    fun updateAvatar(
+        @Path("idUser") idUser: String,
+        @Part("avatar") avatar: MultipartBody.Part?): Call<User>
     //------------------------ UserInfo --------------------------//
     @POST("api/createUserInfo/{idUser}")
     fun createUserInfo(@Path("idUser") idUser: String): Call<UserInfo>
