@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.user.profile.UpdateCoverImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.profile.UpdateAvatarActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.user.postSave.PostSaveActivity"
             android:exported="false" />
         <activity

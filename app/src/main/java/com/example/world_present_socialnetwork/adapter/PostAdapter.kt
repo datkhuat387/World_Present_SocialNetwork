@@ -71,6 +71,7 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 if(item.image == null||item.image == ""){
                     imagePost.visibility = View.GONE
                 }else{
+                    imagePost.visibility = View.VISIBLE
                     Glide.with(holder.itemView.context)
                         .load(Common.baseURL+item.image)
                         .placeholder(R.drawable.image_default)

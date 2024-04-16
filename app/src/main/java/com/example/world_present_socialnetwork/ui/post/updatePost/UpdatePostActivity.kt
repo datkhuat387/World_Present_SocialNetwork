@@ -7,9 +7,13 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.PostController
 import com.example.world_present_socialnetwork.databinding.ActivityUpdatePostBinding
+import com.example.world_present_socialnetwork.utils.Common
 import com.github.dhaval2404.imagepicker.ImagePicker
 import java.io.File
 
@@ -28,6 +32,7 @@ class UpdatePostActivity : AppCompatActivity() {
         val idUser = sharedPreferences?.getString("id", "").toString()
         Log.e("test add", "$idUser")
         idPost = intent.getStringExtra("idPost")
+        idPost?.let { getDetailPost(it) }
         idPost?.let { updatePost(it) }
         binding.btnBack.setOnClickListener {
             finish()
@@ -42,7 +47,25 @@ class UpdatePostActivity : AppCompatActivity() {
         }
 
     }
-
+    private fun getDetailPost(idPost: String){
+        postController.getDetailPost(idPost){post, error->
+            if(post!=null){
+                binding.edContent.setText(post.content)
+                if(post.image == null||post.image == ""){
+                    binding.imagePost.visibility = View.GONE
+                }else{
+                    binding.imagePost.visibility = View.VISIBLE
+                    Glide.with(applicationContext)
+                        .load(Common.baseURL+post.image)
+                        .placeholder(R.drawable.image_default)
+                        .error(R.drawable.image_default)
+                        .into(binding.imagePost)
+                }
+            }else{
+                Toast.makeText(this, "Đã xảy ra lỗi: $error", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
     private fun updatePost(idPost: String){
         binding.btnSave.setOnClickListener {
             val content = binding.edContent.text.toString()
@@ -59,11 +82,7 @@ class UpdatePostActivity : AppCompatActivity() {
                     finish()
                     Log.e("TAG", "updatePost: $post")
                 } else {
-                    Toast.makeText(
-                        this,
-                        "Đã xảy ra lỗi: $error",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, "Đã xảy ra lỗi: $error", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -75,6 +94,7 @@ class UpdatePostActivity : AppCompatActivity() {
             //Image Uri will not be null for RESULT_OK
             imageUri = data?.data!!
             // Use Uri object instead of File to avoid storage permissions
+            binding.imagePost.visibility = View.VISIBLE
             binding.imagePost.setImageURI(imageUri)
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
