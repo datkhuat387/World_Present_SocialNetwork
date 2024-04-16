@@ -126,8 +126,8 @@ class UserController {
     }
     fun updateAvatar(idUser: String, avatar: File?, callback: (User?, String?) -> Unit){
         val avatarPart = if (avatar != null) {
-            val requestFile = avatar.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("image", avatar.name, requestFile)
+            val requestFile = avatar.asRequestBody("avatar/*".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("avatar", avatar.name, requestFile)
         } else {
             null
         }

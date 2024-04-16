@@ -22,6 +22,7 @@ class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
     private val userController = UserController()
+    private var id: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,24 +36,9 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val sharedPreferences = activity?.getSharedPreferences("profile", Context.MODE_PRIVATE)
-        var id: String? = sharedPreferences?.getString("id","")
+        id = sharedPreferences?.getString("id","")
         Log.e("test1", "$id")
-
-        id?.let {
-            userController.getUser(it){ user, error ->
-                if (user != null) {
-                    binding.tvFullname.text = user.fullname
-
-                    Glide.with(requireContext())
-                        .load(Common.baseURL+user.avatar)
-                        .placeholder(R.drawable.avatar_profile)
-                        .error(R.drawable.avatar_profile)
-                        .into(binding.imgAvatar)
-                }else{
-                    Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        id?.let { getUser(it) }
         binding.tvSetting.setOnClickListener {
             val intent = Intent(context,SettingActivity::class.java)
             startActivity(intent)
@@ -64,6 +50,26 @@ class MenuFragment : Fragment() {
         binding.tvLogOut.setOnClickListener {
             (activity as? MainActivity)?.performLogout()
         }
+    }
+    private fun getUser(id: String){
+        userController.getUser(id){ user, error ->
+            if (user != null) {
+                binding.tvFullname.text = user.fullname
+
+                Glide.with(requireContext())
+                    .load(Common.baseURL+user.avatar)
+                    .placeholder(R.drawable.avatar_profile)
+                    .error(R.drawable.avatar_profile)
+                    .into(binding.imgAvatar)
+            }else{
+                Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        id?.let { getUser(it) }
     }
     override fun onDestroyView() {
         super.onDestroyView()

@@ -51,12 +51,19 @@ interface ApiService {
     @PUT("api/updateAvatar/{idUser}")
     fun updateAvatar(
         @Path("idUser") idUser: String,
-        @Part("avatar") avatar: MultipartBody.Part?): Call<User>
+        @Part avatar: MultipartBody.Part?
+    ): Call<User>
     //------------------------ UserInfo --------------------------//
     @POST("api/createUserInfo/{idUser}")
     fun createUserInfo(@Path("idUser") idUser: String): Call<UserInfo>
     @GET("api/userInfo/{idUser}")
     fun getUserInfo(@Path("idUser") idUser: String): Call<UserInfoExtend>
+    @Multipart
+    @PUT("api/updateCoverImage/{id}")
+    fun updateCoverImage(
+        @Path("id") id: String,
+        @Part coverImage: MultipartBody.Part?
+    ): Call<UserInfo>
     //------------------------- Post -----------------------------//
     @GET("api/getAllPost/{idUser}")
     fun getAllPost(@Path("idUser") idUser: String): Call<List<PostsExtend>>
