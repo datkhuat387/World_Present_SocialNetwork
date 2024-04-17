@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+    <LinearLayout
+        android:id="@+id/lnr_edt_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/ed_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_border_edt"
+            android:gravity="start"
+            android:hint="Bình luận"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:elevation="5dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            android:layout_margin="1dp"
+            android:scrollbars="vertical" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_btn_profile_2"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:layout_marginEnd="10sp"
+                android:text="Hủy"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_btn_profile"
+                android:paddingHorizontal="15sp"
+                android:paddingVertical="10sp"
+                android:text="Xác nhận"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

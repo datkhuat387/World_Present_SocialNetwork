@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_update_cmt"
+        android:title="Chỉnh sửa bình luận" />
+    <item
+        android:id="@+id/menu_delete_cmt"
+        android:title="Xóa bình luận" />
+    <item
+        android:id="@+id/menu_copy_cmt"
+        android:title="Sao chép" />
+    <item
+        android:id="@+id/menu_report_cmt"
+        android:title="Báo cáo" />
+</menu>

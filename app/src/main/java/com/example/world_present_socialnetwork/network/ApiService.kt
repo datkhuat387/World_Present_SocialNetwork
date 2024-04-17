@@ -87,23 +87,23 @@ interface ApiService {
     fun getDetailPost(@Path("id") id: String): Call<PostsExtend>
     //-------------------------- Like -----------------------------//
     @POST("api/like")
-    fun like(@Body like: Like): Call<Like>
+    fun like(@Body like: Like): Call<LikeExtend>
     @DELETE("api/removeLike/{id}")
     fun removeLike(@Path("id") id: String): Call<LikeExtend>
     @GET("api/listLikeByIdPost/{idPost}")
     fun getListLikeByIdPost(@Path("idPost") idPost: String): Call<List<LikeExtend>>
     //-------------------------- Comment ----------------------------//
     @POST("api/comment")
-    fun comment(@Body comments: Comments): Call<Comments>
+    fun comment(@Body comments: Comments): Call<CommentsExtend>
     @GET("api/comment/{idPost}")
     fun getComment(@Path("idPost") idPost: String): Call<MutableList<CommentsExtend>>
     @PUT("api/comment/{id}")
     fun updateComment(
         @Path("id") id: String,
         @Body comments: Comments
-    ): Call<Comments>
+    ): Call<CommentsExtend>
     @DELETE("api/comment/{id}")
-    fun deleteComment(@Path("id") id: String): Call<Comments>
+    fun deleteComment(@Path("id") id: String): Call<CommentsExtend>
     //------------------------- Friend ------------------------------//
     @POST("api/addFriend")
     fun addFriend(@Body friendships: Friendships): Call<Friendships>

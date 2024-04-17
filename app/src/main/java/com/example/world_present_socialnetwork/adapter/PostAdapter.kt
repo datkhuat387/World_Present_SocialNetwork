@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.databinding.ItemPostBinding
+import com.example.world_present_socialnetwork.model.LikeExtend
 import com.example.world_present_socialnetwork.model.PostsExtend
 import com.example.world_present_socialnetwork.utils.Common
 
@@ -38,7 +39,7 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     }
     interface PostListener{
         fun onClickComment(idPost: String)
-        fun onClickLike(post: PostsExtend)
+        fun onClickLike(like: LikeExtend?,post: PostsExtend)
         fun onClickMenu(post: PostsExtend,isOwner: Boolean, view: View)
         fun onClickProfile(idUserAt: String)
     }
@@ -54,7 +55,18 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
             }
 
             holder.binding.tvLike.setOnClickListener {
-                item.let { it1 -> postlistener?.onClickLike(it1) }
+                val currentUserId = currentIdUser
+
+                var likeIsCLick: LikeExtend? = null
+
+                item.like?.forEach { like ->
+                    if (like.idUser._id == currentUserId) {
+                        likeIsCLick = like
+                        return@forEach
+                    }
+                }
+
+                postlistener?.onClickLike(likeIsCLick, item)
             }
             holder.binding.tvComment.setOnClickListener {
                 item._id?.let { it1 -> postlistener?.onClickComment(it1) }
