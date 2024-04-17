@@ -10,41 +10,41 @@ import retrofit2.Response
 
 class CommentController {
     private val apiService: ApiService = RetrofitClient.apiService
-    fun comment(idUser:String, idPost:String,comment:String, callback: (Comments?,String?)-> Unit){
+    fun comment(idUser:String, idPost:String,comment:String, callback: (CommentsExtend?,String?)-> Unit){
         val comment = Comments(null, idUser, idPost, comment,null,null,null)
-        apiService.comment(comment).enqueue(object : Callback<Comments>{
-            override fun onResponse(call: Call<Comments>, response: Response<Comments>) {
+        apiService.comment(comment).enqueue(object : Callback<CommentsExtend>{
+            override fun onResponse(call: Call<CommentsExtend>, response: Response<CommentsExtend>) {
                 val comment = response.body()
                 callback(comment,null)
             }
 
-            override fun onFailure(call: Call<Comments>, t: Throwable) {
+            override fun onFailure(call: Call<CommentsExtend>, t: Throwable) {
                 callback(null, t.message)
             }
         })
     }
-    fun updateComment(idComment: String, comment:String, callback: (Comments?, String?) -> Unit){
+    fun updateComment(idComment: String, comment:String, callback: (CommentsExtend?, String?) -> Unit){
         val comment = Comments(null,null,null,comment,null,null,null)
-        apiService.updateComment(idComment,comment).enqueue(object : Callback<Comments>{
-            override fun onResponse(call: Call<Comments>, response: Response<Comments>) {
+        apiService.updateComment(idComment,comment).enqueue(object : Callback<CommentsExtend>{
+            override fun onResponse(call: Call<CommentsExtend>, response: Response<CommentsExtend>) {
                 val comment = response.body()
                 callback(comment,null)
             }
 
-            override fun onFailure(call: Call<Comments>, t: Throwable) {
+            override fun onFailure(call: Call<CommentsExtend>, t: Throwable) {
                 callback(null, t.message)
             }
 
         })
     }
-    fun removeComment(idComment: String, callback: (Comments?, String?) -> Unit){
-        apiService.deleteComment(idComment).enqueue(object : Callback<Comments>{
-            override fun onResponse(call: Call<Comments>, response: Response<Comments>) {
+    fun removeComment(idComment: String, callback: (CommentsExtend?, String?) -> Unit){
+        apiService.deleteComment(idComment).enqueue(object : Callback<CommentsExtend>{
+            override fun onResponse(call: Call<CommentsExtend>, response: Response<CommentsExtend>) {
                 val comment = response.body()
                 callback(comment,null)
             }
 
-            override fun onFailure(call: Call<Comments>, t: Throwable) {
+            override fun onFailure(call: Call<CommentsExtend>, t: Throwable) {
                 callback(null, t.message)
             }
 

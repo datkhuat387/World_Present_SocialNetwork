@@ -10,15 +10,15 @@ import retrofit2.Response
 
 class LikeController {
     private val apiService: ApiService = RetrofitClient.apiService
-    fun likePost(idUser: String, idPost:String, callback: (Like?,String?)->Unit){
+    fun likePost(idUser: String, idPost:String, callback: (LikeExtend?,String?)->Unit){
         val like = Like(null,idUser,idPost,null)
-        apiService.like(like).enqueue(object : Callback<Like>{
-            override fun onResponse(call: Call<Like>, response: Response<Like>) {
+        apiService.like(like).enqueue(object : Callback<LikeExtend>{
+            override fun onResponse(call: Call<LikeExtend>, response: Response<LikeExtend>) {
                 val like = response.body()
                 callback(like,null)
             }
 
-            override fun onFailure(call: Call<Like>, t: Throwable) {
+            override fun onFailure(call: Call<LikeExtend>, t: Throwable) {
                 callback(null, t.message)
             }
 
