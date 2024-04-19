@@ -108,8 +108,9 @@ class CommentActivity : AppCompatActivity() {
                     when(it.itemId){
                         R.id.menu_update_cmt ->{
                             binding.lnrEdtCmt.visibility = View.INVISIBLE
-                            commentAdapter.setIsEditing(true)
-                            dialogUpdate(commentsExtend)
+                            val updateCmt = listComment.find { it._id==commentsExtend._id}
+                            updateCmt?.isEditing = true
+                            commentAdapter.updateComment(listComment)
                             return@setOnMenuItemClickListener true
                         }
                         R.id.menu_delete_cmt ->{
@@ -132,6 +133,17 @@ class CommentActivity : AppCompatActivity() {
                     }
                 }
                 popupMenu.show()
+            }
+
+            override fun onClickUpdateComment(commentsExtend: CommentsExtend, newComment: String) {
+                updateComment(commentsExtend,newComment)
+            }
+
+            override fun onClickCancelComment(commentsExtend: CommentsExtend) {
+                binding.lnrEdtCmt.visibility = View.VISIBLE
+                val updateCmt = listComment.find { it._id==commentsExtend._id}
+                updateCmt?.isEditing = false
+                commentAdapter.updateComment(listComment)
             }
         })
         binding.imgSend.setOnClickListener {
@@ -173,9 +185,11 @@ class CommentActivity : AppCompatActivity() {
                 if(commentExtend!=null){
                     val updateCmt = listComment.find { it._id==commentExtend._id }
                     updateCmt?.comment = comment
-                    commentAdapter.setIsEditing(false)
+                    updateCmt?.isEditing = false
                     commentAdapter.updateComment(listComment)
+                    binding.lnrEdtCmt.visibility = View.VISIBLE
                 }else{
+                    Log.e("TAG", "updateComment: $comment", )
                     Toast.makeText(this@CommentActivity, "Đã xảy ra lỗi cle: $error", Toast.LENGTH_SHORT).show()
                 }
             }

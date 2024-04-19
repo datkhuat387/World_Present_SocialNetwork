@@ -47,6 +47,8 @@ class CommentAdapter: RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
     }
     interface CommentListener{
         fun onLongClickComment(commentsExtend: CommentsExtend,isOwner: Boolean, view: View)
+        fun onClickUpdateComment(commentsExtend: CommentsExtend,newComment: String)
+        fun onClickCancelComment(commentsExtend: CommentsExtend)
     }
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         if(listCmt.isNotEmpty()){
@@ -58,12 +60,30 @@ class CommentAdapter: RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
                 commentListener?.onLongClickComment(item,isOwner, holder.binding.tvFullname)
                 true
             }
+            holder.binding.btnCancel.setOnClickListener {
+                commentListener?.onClickCancelComment(item)
+            }
+            holder.binding.btnConfirm.setOnClickListener {
+                val newComment = holder.binding.edComment.text.toString()
+                newComment.let { it1 -> commentListener?.onClickUpdateComment(item, it1) }
+            }
             holder.binding.apply {
                 Glide.with(holder.itemView.context)
                     .load(Common.baseURL+item.idUser.avatar)
                     .placeholder(R.drawable.avatar_profile)
                     .error(R.drawable.avatar_profile)
                     .into(imageAvt)
+
+                if(item.isEditing == true){
+                    holder.binding.edComment.setText(item.comment)
+                    lnrCmt.visibility = View.GONE
+                    lnrRep.visibility = View.GONE
+                    lnrEdtUpdate.visibility = View.VISIBLE
+                }else{
+                    lnrCmt.visibility = View.VISIBLE
+                    lnrRep.visibility = View.VISIBLE
+                    lnrEdtUpdate.visibility = View.GONE
+                }
                 tvFullname.text = item.idUser.fullname
                 tvComment.text = item.comment
                 tvAt.text = item.updateAt?.let { Common.formatDateTime(it) }

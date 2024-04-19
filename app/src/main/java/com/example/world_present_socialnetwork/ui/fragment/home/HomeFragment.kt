@@ -20,6 +20,7 @@ import com.example.world_present_socialnetwork.model.PostsExtend
 import com.example.world_present_socialnetwork.ui.comment.CommentActivity
 import com.example.world_present_socialnetwork.ui.post.addPost.AddPostActivity
 import com.example.world_present_socialnetwork.ui.post.updatePost.UpdatePostActivity
+import com.example.world_present_socialnetwork.ui.search.SearchActivity
 import com.example.world_present_socialnetwork.ui.user.profile.MyProfileActivity
 import com.example.world_present_socialnetwork.ui.user.profile.ProfileActivity
 import kotlinx.coroutines.CoroutineScope
@@ -58,7 +59,8 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
         binding.imgSearch.setOnClickListener {
-
+            val intent = Intent(requireContext(),SearchActivity::class.java)
+            startActivity(intent)
         }
         postAdapter.setListener(object : PostAdapter.PostListener{
             override fun onClickComment(idPost: String) {
