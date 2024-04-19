@@ -4,10 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPager2Adapter(
+class SearchViewPage2Adapter(
     private val listFragment: MutableList<Fragment>,
     supportFragmentManager: FragmentActivity):
-    FragmentStateAdapter(supportFragmentManager)  {
+    FragmentStateAdapter(supportFragmentManager) {
     override fun getItemCount(): Int {
         return listFragment.size
     }

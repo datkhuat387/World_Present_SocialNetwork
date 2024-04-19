@@ -11,7 +11,7 @@ import retrofit2.Response
 class CommentController {
     private val apiService: ApiService = RetrofitClient.apiService
     fun comment(idUser:String, idPost:String,comment:String, callback: (CommentsExtend?,String?)-> Unit){
-        val comment = Comments(null, idUser, idPost, comment,null,null,null)
+        val comment = Comments(null, idUser, idPost,null, comment,null,null,null)
         apiService.comment(comment).enqueue(object : Callback<CommentsExtend>{
             override fun onResponse(call: Call<CommentsExtend>, response: Response<CommentsExtend>) {
                 val comment = response.body()
@@ -24,7 +24,7 @@ class CommentController {
         })
     }
     fun updateComment(idComment: String, comment:String, callback: (CommentsExtend?, String?) -> Unit){
-        val comment = Comments(null,null,null,comment,null,null,null)
+        val comment = Comments(null,null,null,null,comment,null,null,null)
         apiService.updateComment(idComment,comment).enqueue(object : Callback<CommentsExtend>{
             override fun onResponse(call: Call<CommentsExtend>, response: Response<CommentsExtend>) {
                 val comment = response.body()
