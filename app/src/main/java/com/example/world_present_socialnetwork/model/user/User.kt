@@ -1,4 +1,4 @@
-package com.example.world_present_socialnetwork.model
+package com.example.world_present_socialnetwork.model.user
 
 data class User(
     var _id:String? = null,
@@ -7,6 +7,7 @@ data class User(
     var password:String? = null,
     var fullname:String? = null,
     var status:Int? = null,
+    var checkFriend:Int? = null,
     var idAccountType:String? = null,
     var avatar:String? = null,
     var createAt:String? = null,

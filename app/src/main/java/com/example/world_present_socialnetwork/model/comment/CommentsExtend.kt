@@ -1,8 +1,10 @@
-package com.example.world_present_socialnetwork.model
+package com.example.world_present_socialnetwork.model.comment
 
-data class Comments(
+import com.example.world_present_socialnetwork.model.user.User
+
+data class CommentsExtend(
     var _id:String? = null,
-    var idUser:String? = null,
+    var idUser: User,
     var idPost:String? = null,
     var isEditing: Boolean? = null,
     var comment:String? = null,

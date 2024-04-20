@@ -1,7 +1,7 @@
 package com.example.world_present_socialnetwork.controllers
 
-import com.example.world_present_socialnetwork.model.Friendships
-import com.example.world_present_socialnetwork.model.FriendshipsExtend
+import com.example.world_present_socialnetwork.model.friend.Friendships
+import com.example.world_present_socialnetwork.model.friend.FriendshipsExtend
 import com.example.world_present_socialnetwork.network.ApiService
 import com.example.world_present_socialnetwork.network.RetrofitClient
 import retrofit2.Call
@@ -10,7 +10,7 @@ import retrofit2.Response
 
 class FriendshipController {
     private val apiService: ApiService = RetrofitClient.apiService
-    fun addFriend(idUser: String, idFriend: String, callback: (Friendships?,String?)->Unit){
+    fun addFriend(idUser: String, idFriend: String, callback: (Friendships?, String?)->Unit){
         val friendships = Friendships(null,idUser,idFriend,null,null,null)
         apiService.addFriend(friendships).enqueue(object : Callback<Friendships>{
             override fun onResponse(call: Call<Friendships>, response: Response<Friendships>) {

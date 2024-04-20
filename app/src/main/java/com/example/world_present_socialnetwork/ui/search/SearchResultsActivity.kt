@@ -27,6 +27,10 @@ class SearchResultsActivity : AppCompatActivity() {
         setContentView(binding.root)
         val textSearch = intent.getStringExtra("search")
         Log.e("TAG", "onCreate: $textSearch", )
+
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
         binding.edSearch.setText(textSearch)
         setUpTabLayout()
     }

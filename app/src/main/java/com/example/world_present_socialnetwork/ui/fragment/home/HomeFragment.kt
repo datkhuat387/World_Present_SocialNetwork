@@ -15,8 +15,8 @@ import com.example.world_present_socialnetwork.adapter.PostAdapter
 import com.example.world_present_socialnetwork.controllers.LikeController
 import com.example.world_present_socialnetwork.controllers.PostController
 import com.example.world_present_socialnetwork.databinding.FragmentHomeBinding
-import com.example.world_present_socialnetwork.model.LikeExtend
-import com.example.world_present_socialnetwork.model.PostsExtend
+import com.example.world_present_socialnetwork.model.like.LikeExtend
+import com.example.world_present_socialnetwork.model.post.PostsExtend
 import com.example.world_present_socialnetwork.ui.comment.CommentActivity
 import com.example.world_present_socialnetwork.ui.post.addPost.AddPostActivity
 import com.example.world_present_socialnetwork.ui.post.updatePost.UpdatePostActivity
@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
                     Log.e("TAG  remove", "Like: ${post._id}")
                 }
             }
-            override fun onClickMenu(post: PostsExtend,isOwner: Boolean,view:View) {
+            override fun onClickMenu(post: PostsExtend, isOwner: Boolean, view:View) {
                 val popupMenu = PopupMenu(requireContext(),view)
                 Log.e("TAG", "isPost: $isOwner" )
                 popupMenu.inflate(R.menu.menu_post)
@@ -172,7 +172,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
-    private fun removeLikePost(like: LikeExtend,post: PostsExtend){
+    private fun removeLikePost(like: LikeExtend, post: PostsExtend){
         like._id?.let {
             likeController.removeLike(it){ like, error->
                 if(like!=null){

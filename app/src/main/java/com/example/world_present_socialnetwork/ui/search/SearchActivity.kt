@@ -21,6 +21,9 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imgBack.setOnClickListener {
+            finish()
+        }
         binding.imgSearch.setOnClickListener {
             val textSearch = binding.edSearch.text.toString()
             val intent = Intent(this,SearchResultsActivity::class.java)

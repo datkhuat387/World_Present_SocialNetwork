@@ -13,8 +13,7 @@ import com.example.world_present_socialnetwork.adapter.CFriendAdapter
 import com.example.world_present_socialnetwork.adapter.WFriendAdapter
 import com.example.world_present_socialnetwork.controllers.FriendshipController
 import com.example.world_present_socialnetwork.databinding.FragmentFriendBinding
-import com.example.world_present_socialnetwork.model.Friendships
-import com.example.world_present_socialnetwork.model.FriendshipsExtend
+import com.example.world_present_socialnetwork.model.friend.FriendshipsExtend
 import com.example.world_present_socialnetwork.ui.friend.ConfirmFriendActivity
 import com.example.world_present_socialnetwork.ui.friend.WaitFriendActivity
 import com.example.world_present_socialnetwork.ui.user.profile.ProfileActivity

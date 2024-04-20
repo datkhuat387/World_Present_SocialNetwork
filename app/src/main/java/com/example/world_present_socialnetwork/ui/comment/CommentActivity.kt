@@ -16,28 +16,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
-import android.widget.GridLayout
-import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.adapter.CommentAdapter
 import com.example.world_present_socialnetwork.controllers.CommentController
 import com.example.world_present_socialnetwork.controllers.PostController
 import com.example.world_present_socialnetwork.databinding.ActivityCommentBinding
-import com.example.world_present_socialnetwork.model.CommentsExtend
-import com.example.world_present_socialnetwork.model.PostsExtend
+import com.example.world_present_socialnetwork.model.comment.CommentsExtend
 import com.example.world_present_socialnetwork.utils.Common
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class CommentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommentBinding
@@ -179,7 +171,7 @@ class CommentActivity : AppCompatActivity() {
             }
         }
     }
-    private fun updateComment(commentsExtend: CommentsExtend,comment: String){
+    private fun updateComment(commentsExtend: CommentsExtend, comment: String){
         commentsExtend._id?.let {
             commentController.updateComment(it,comment){ commentExtend, error->
                 if(commentExtend!=null){
