@@ -1,7 +1,9 @@
-package com.example.world_present_socialnetwork.model
+package com.example.world_present_socialnetwork.model.post
 
 data class Posts(
     var _id:String? = null,
+    var idGroup:String? = null,
+    var idPage: String? = null,
     var idUser:String? = null,
     var isOwner: Boolean? = null,
     var isLiked: Boolean? = null,

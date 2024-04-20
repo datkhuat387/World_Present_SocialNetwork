@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.databinding.ItemPostBinding
-import com.example.world_present_socialnetwork.model.LikeExtend
-import com.example.world_present_socialnetwork.model.PostsExtend
+import com.example.world_present_socialnetwork.model.like.LikeExtend
+import com.example.world_present_socialnetwork.model.post.PostsExtend
 import com.example.world_present_socialnetwork.utils.Common
 
 class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
@@ -39,8 +39,8 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
     }
     interface PostListener{
         fun onClickComment(idPost: String)
-        fun onClickLike(like: LikeExtend?,post: PostsExtend)
-        fun onClickMenu(post: PostsExtend,isOwner: Boolean, view: View)
+        fun onClickLike(like: LikeExtend?, post: PostsExtend)
+        fun onClickMenu(post: PostsExtend, isOwner: Boolean, view: View)
         fun onClickProfile(idUserAt: String)
     }
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {

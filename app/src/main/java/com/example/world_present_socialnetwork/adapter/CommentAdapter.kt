@@ -1,19 +1,14 @@
 package com.example.world_present_socialnetwork.adapter
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.PopupWindow
-import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.databinding.ItemCommentBinding
-import com.example.world_present_socialnetwork.model.CommentsExtend
+import com.example.world_present_socialnetwork.model.comment.CommentsExtend
 import com.example.world_present_socialnetwork.utils.Common
 
 class CommentAdapter: RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
@@ -46,8 +41,8 @@ class CommentAdapter: RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
         isEditTing = isEdit
     }
     interface CommentListener{
-        fun onLongClickComment(commentsExtend: CommentsExtend,isOwner: Boolean, view: View)
-        fun onClickUpdateComment(commentsExtend: CommentsExtend,newComment: String)
+        fun onLongClickComment(commentsExtend: CommentsExtend, isOwner: Boolean, view: View)
+        fun onClickUpdateComment(commentsExtend: CommentsExtend, newComment: String)
         fun onClickCancelComment(commentsExtend: CommentsExtend)
     }
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {

@@ -1,15 +1,11 @@
 package com.example.world_present_socialnetwork.ui.register
 
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.UserController
 import com.example.world_present_socialnetwork.controllers.UserInfoController
 import com.example.world_present_socialnetwork.databinding.ActivityRegisterBinding
-import com.example.world_present_socialnetwork.model.User
 
 
 class RegisterActivity : AppCompatActivity() {

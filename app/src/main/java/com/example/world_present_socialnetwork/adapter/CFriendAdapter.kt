@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.databinding.ItemConfirmFriendBinding
-import com.example.world_present_socialnetwork.model.Friendships
-import com.example.world_present_socialnetwork.model.FriendshipsExtend
+import com.example.world_present_socialnetwork.model.friend.FriendshipsExtend
 import com.example.world_present_socialnetwork.utils.Common
 
 class CFriendAdapter: RecyclerView.Adapter<CFriendAdapter.CFriendViewHolder>() {

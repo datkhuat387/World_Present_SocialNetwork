@@ -126,20 +126,18 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
     private fun unFriend(idUSer: String){
-        idUser?.let {
-            friendshipController.unFriend(it){ friend, error->
-                if(friend!=null){
-                    isFriend = false
-                    binding.btnAddFriend.text = "Thêm bạn bè"
-                    binding.btnAddFriend.setBackgroundDrawable(ContextCompat.getDrawable(this,
-                        R.drawable.shape_btn_profile))
-                    binding.btnAddFriend.setTextColor(ContextCompat.getColor(this,R.color.white))
-                    binding.btnAddFriend.setCompoundDrawablesWithIntrinsicBounds(
-                        R.drawable.ic_add_friend,0,0,0)
-                    Toast.makeText(this@ProfileActivity, "Đã hủy kết bạn.", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(this@ProfileActivity, "$error", Toast.LENGTH_SHORT).show()
-                }
+        friendshipController.unFriend(idUSer){ friend, error->
+            if(friend!=null){
+                isFriend = false
+                binding.btnAddFriend.text = "Thêm bạn bè"
+                binding.btnAddFriend.setBackgroundDrawable(ContextCompat.getDrawable(this,
+                    R.drawable.shape_btn_profile))
+                binding.btnAddFriend.setTextColor(ContextCompat.getColor(this,R.color.white))
+                binding.btnAddFriend.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.ic_add_friend,0,0,0)
+                Toast.makeText(this@ProfileActivity, "Đã hủy kết bạn.", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this@ProfileActivity, "$error", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -1,18 +1,18 @@
 package com.example.world_present_socialnetwork.network
 
-import com.example.world_present_socialnetwork.model.Comments
-import com.example.world_present_socialnetwork.model.CommentsExtend
-import com.example.world_present_socialnetwork.model.Friendships
-import com.example.world_present_socialnetwork.model.FriendshipsExtend
-import com.example.world_present_socialnetwork.model.Like
-import com.example.world_present_socialnetwork.model.LikeExtend
-import com.example.world_present_socialnetwork.model.LoginRequest
-import com.example.world_present_socialnetwork.model.Posts
-import com.example.world_present_socialnetwork.model.PostsExtend
-import com.example.world_present_socialnetwork.model.User
-import com.example.world_present_socialnetwork.model.UserChangePasswd
-import com.example.world_present_socialnetwork.model.UserInfo
-import com.example.world_present_socialnetwork.model.UserInfoExtend
+import com.example.world_present_socialnetwork.model.comment.Comments
+import com.example.world_present_socialnetwork.model.comment.CommentsExtend
+import com.example.world_present_socialnetwork.model.friend.Friendships
+import com.example.world_present_socialnetwork.model.friend.FriendshipsExtend
+import com.example.world_present_socialnetwork.model.like.Like
+import com.example.world_present_socialnetwork.model.like.LikeExtend
+import com.example.world_present_socialnetwork.model.user.LoginRequest
+import com.example.world_present_socialnetwork.model.post.Posts
+import com.example.world_present_socialnetwork.model.post.PostsExtend
+import com.example.world_present_socialnetwork.model.user.User
+import com.example.world_present_socialnetwork.model.user.UserChangePasswd
+import com.example.world_present_socialnetwork.model.userInfo.UserInfo
+import com.example.world_present_socialnetwork.model.userInfo.UserInfoExtend
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -46,7 +46,8 @@ interface ApiService {
     @PUT("api/updateFullname/{idUser}")
     fun updateFullname(
         @Path("idUser") idUser: String,
-        @Body user: User): Call<User>
+        @Body user: User
+    ): Call<User>
     @Multipart
     @PUT("api/updateAvatar/{idUser}")
     fun updateAvatar(

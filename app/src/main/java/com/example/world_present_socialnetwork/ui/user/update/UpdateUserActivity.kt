@@ -4,14 +4,9 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.UserController
 import com.example.world_present_socialnetwork.databinding.ActivityUpdateUserBinding
-import com.example.world_present_socialnetwork.model.User
 
 class UpdateUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUpdateUserBinding

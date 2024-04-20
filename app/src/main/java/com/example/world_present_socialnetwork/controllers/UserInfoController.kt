@@ -1,7 +1,7 @@
 package com.example.world_present_socialnetwork.controllers
 
-import com.example.world_present_socialnetwork.model.UserInfo
-import com.example.world_present_socialnetwork.model.UserInfoExtend
+import com.example.world_present_socialnetwork.model.userInfo.UserInfo
+import com.example.world_present_socialnetwork.model.userInfo.UserInfoExtend
 import com.example.world_present_socialnetwork.network.ApiService
 import com.example.world_present_socialnetwork.network.RetrofitClient
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
