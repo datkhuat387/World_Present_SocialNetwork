@@ -52,7 +52,19 @@ class ProfileActivity : AppCompatActivity() {
                 idUser?.let { it1 -> unFriend(it1) }
             }
         }
+        binding.swipeToRefresh.setOnRefreshListener {
+            if(binding.swipeToRefresh.isRefreshing){
+                onResume()
+            }
+        }
         setUpTabLayout()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        idUserAt?.let { getUser(it) }
+        idUserAt?.let { getUserInfo(it) }
+        idUser?.let { idUserAt?.let { it1 -> friend(it, it1) } }
     }
     private fun getUser(idUser: String){
         userController.getUser(idUser){user,error->
@@ -64,6 +76,7 @@ class ProfileActivity : AppCompatActivity() {
                     .placeholder(R.drawable.avatar_profile)
                     .error(R.drawable.avatar_profile)
                     .into(binding.imgAvatar)
+                binding.swipeToRefresh.isRefreshing = false
             }else{
                 Toast.makeText(this@ProfileActivity, "$error", Toast.LENGTH_SHORT).show()
             }
@@ -77,7 +90,7 @@ class ProfileActivity : AppCompatActivity() {
                     .placeholder(R.drawable.cover_image_default)
                     .error(R.drawable.cover_image_default)
                     .into(binding.imgCover)
-                Toast.makeText(this@ProfileActivity, "${userInfo.isActive}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@ProfileActivity, "${userInfo.isActive}", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(this@ProfileActivity, "$error", Toast.LENGTH_SHORT).show()
             }
@@ -142,7 +155,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
     private fun setUpTabLayout(){
-        listFragment.add(0,PostProfileFragment())
+        listFragment.add(0, idUserAt?.let { PostProfileFragment(it) }!!)
         listFragment.add(1,PhotoProfileFragment())
         listFragment.add(2,ReelsProfileFragment())
         viewPager2Adapter = ViewPager2Adapter(listFragment, this)

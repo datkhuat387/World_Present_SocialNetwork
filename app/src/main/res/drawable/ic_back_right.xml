@@ -2,7 +2,7 @@
     android:width="15dp"
     android:height="17dp"
     android:viewportWidth="15"
-    android:viewportHeight="17">
+    android:viewportHeight="16">
   <path
       android:pathData="M4,15L11,8.5L4,2"
       android:strokeWidth="1.5"

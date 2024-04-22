@@ -25,15 +25,18 @@
             android:id="@+id/image_avt"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:visibility="visible"
             android:scaleType="centerCrop"
             android:layout_marginStart="14dp"
             android:src="@drawable/avatar_profile"
             app:shapeAppearanceOverlay="@style/round_avt_cirle"
             />
         <LinearLayout
+            android:id="@+id/lnr_name_date_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:visibility="visible"
             android:layout_marginStart="10dp"
             android:orientation="vertical">
             <com.google.android.material.textview.MaterialTextView
@@ -54,7 +57,85 @@
                 android:textStyle="bold"
                 />
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/img_cover_gr"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@color/gray_4"
+                android:scaleType="centerCrop" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_avt2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar_profile"
+                app:shapeAppearanceOverlay="@style/round_avt_cirle" />
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/lnr_name_gr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:orientation="vertical"
+            >
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuyển dụng thực tập IT"
+                android:layout_marginStart="5dp"
+                android:visibility="visible"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/relativeLayout"
+                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_name_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:visibility="visible"
+                    android:text="Nguyễn Văn A"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/relativeLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_group" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_date_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• 28/03/2024"
+                    android:layout_marginStart="5dp"
+                    android:visibility="visible"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_name_2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_group"
+                    />
+            </LinearLayout>
+        </LinearLayout>
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ic_edit"
             android:layout_width="wrap_content"

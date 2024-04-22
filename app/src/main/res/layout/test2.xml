@@ -150,7 +150,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ic_edit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.imageview.ShapeableImageView
+        <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/image_post"
         android:layout_width="match_parent"
         android:layout_height="200dp"

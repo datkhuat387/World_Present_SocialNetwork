@@ -42,6 +42,7 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
         fun onClickLike(like: LikeExtend?, post: PostsExtend)
         fun onClickMenu(post: PostsExtend, isOwner: Boolean, view: View)
         fun onClickProfile(idUserAt: String)
+        fun onClickGroup(idGroup: String, idCreator: String)
     }
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         if(listPost.isNotEmpty()){
@@ -52,6 +53,19 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
             }
             holder.binding.tvName.setOnClickListener {
                 item.idUser._id?.let { it1 -> postlistener?.onClickProfile(it1) }
+            }
+            holder.binding.tvName2.setOnClickListener {
+                item.idUser._id?.let { it1 -> postlistener?.onClickProfile(it1) }
+            }
+            holder.binding.tvGroup.setOnClickListener {
+                item.idGroup?.creatorId?.let { it1 ->
+                    item.idGroup!!._id?.let { it2 ->
+                        postlistener?.onClickGroup(
+                            it2,
+                            it1
+                        )
+                    }
+                }
             }
 
             holder.binding.tvLike.setOnClickListener {
@@ -111,8 +125,48 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                 }
                 ///
                 tvContent.text = item.content
-                tvDate.text = item.createAt?.let { Common.formatDateTime(it) }
-                tvName.text = item.idUser.fullname
+                if(item.idGroup==null){
+                    relativeLayout.visibility = View.GONE
+                    tvGroup.visibility = View.GONE
+                    tvName2.visibility = View.GONE
+                    tvDate2.visibility = View.GONE
+
+                    imageAvt.visibility = View.VISIBLE
+                    tvName.visibility = View.VISIBLE
+                    tvDate.visibility = View.VISIBLE
+                    // avatar user
+                    Glide.with(holder.itemView.context)
+                        .load(Common.baseURL+item.idUser.avatar)
+                        .placeholder(R.drawable.avatar_profile)
+                        .error(R.drawable.avatar_profile)
+                        .into(imageAvt)
+                    tvDate.text = item.createAt?.let { Common.formatDateTime(it) }
+                    tvName.text = item.idUser.fullname
+                }else{
+                    relativeLayout.visibility = View.VISIBLE
+                    tvGroup.visibility = View.VISIBLE
+                    tvName2.visibility = View.VISIBLE
+                    tvDate2.visibility = View.VISIBLE
+
+                    imageAvt.visibility = View.GONE
+                    tvName.visibility = View.GONE
+                    tvDate.visibility = View.GONE
+                    /// avatar user
+                    Glide.with(holder.itemView.context)
+                        .load(Common.baseURL+ item.idGroup!!.coverImage)
+                        .placeholder(R.drawable.cover_image_default)
+                        .error(R.drawable.cover_image_default)
+                        .into(imgCoverGr)
+                    /// image cover group
+                    Glide.with(holder.itemView.context)
+                        .load(Common.baseURL+item.idUser.avatar)
+                        .placeholder(R.drawable.avatar_profile)
+                        .error(R.drawable.avatar_profile)
+                        .into(imageAvt2)
+                    tvGroup.text = item.idGroup!!.name
+                    tvDate2.text = " • "+item.createAt?.let { Common.formatDateTime(it) }
+                    tvName2.text = item.idUser.fullname
+                }
                 /// like
                 if(item.likeCount == 0){
                     tvCountLike.visibility = View.INVISIBLE
@@ -127,12 +181,6 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
                     tvCountCmt.visibility = View.VISIBLE
                     tvCountCmt.text = item.commentCount.toString()+" bình luận"
                 }
-                // avatar user
-                Glide.with(holder.itemView.context)
-                    .load(Common.baseURL+item.idUser.avatar)
-                    .placeholder(R.drawable.avatar_profile)
-                    .error(R.drawable.avatar_profile)
-                    .into(imageAvt)
             }
         }
     }

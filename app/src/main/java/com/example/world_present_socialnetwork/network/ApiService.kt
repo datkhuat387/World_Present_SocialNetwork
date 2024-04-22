@@ -4,6 +4,7 @@ import com.example.world_present_socialnetwork.model.comment.Comments
 import com.example.world_present_socialnetwork.model.comment.CommentsExtend
 import com.example.world_present_socialnetwork.model.friend.Friendships
 import com.example.world_present_socialnetwork.model.friend.FriendshipsExtend
+import com.example.world_present_socialnetwork.model.group.Group
 import com.example.world_present_socialnetwork.model.like.Like
 import com.example.world_present_socialnetwork.model.like.LikeExtend
 import com.example.world_present_socialnetwork.model.user.LoginRequest
@@ -86,6 +87,14 @@ interface ApiService {
     fun deletePost(@Path("id") id: String): Call<Void>
     @GET("api/detailPost/{id}")
     fun getDetailPost(@Path("id") id: String): Call<PostsExtend>
+    @GET("api/getPostByIdUser/{idUserAt}/{idUser}")
+    fun getPostByIdUser(
+        @Path("idUserAt") idUserAt: String,
+        @Path("idUser") idUser: String): Call<List<PostsExtend>>
+    @GET("api/getPostByIdGroup/{idGroup}/{idUser}")
+    fun getPostByIdGroup(
+        @Path("idGroup") idGroup: String,
+        @Path("idUser") idUser: String ): Call<List<PostsExtend>>
     //-------------------------- Like -----------------------------//
     @POST("api/like")
     fun like(@Body like: Like): Call<LikeExtend>
@@ -114,6 +123,8 @@ interface ApiService {
     fun friend(@Path("idUser") idUser: String,
                @Path("idFriend") idFriend: String
     ): Call<Friendships>
+    @GET("api/listFriend/{idUser}")
+    fun getListFriend(@Path("idUser") idUser: String): Call<MutableList<FriendshipsExtend>>
     @GET("api/listFriendWaitConfirm/{idUser}")
     fun getListWaitConFirm(@Path("idUser") idUser: String): Call<MutableList<FriendshipsExtend>>
     @GET("api/listFriendIsWaitConfirm/{idUser}")
@@ -122,4 +133,14 @@ interface ApiService {
     fun notConfirmFriend(@Path("id") id: String): Call<Void>
     @PUT("api/confirmAddFriend/{id}")
     fun confirmFriend(@Path("id") id: String): Call<Friendships>
+    //------------------------- Group ------------------------------//
+    @POST("api/createGroup/{idUser}")
+    fun createGroup(
+        @Path("idUser") idUser: String,
+        @Body group: Group
+    ): Call<Group>
+    @GET("api/getMyGroupManage/{idUser}")
+    fun getMyGroupManage(@Path("idUser") idUser: String): Call<List<Group>>
+    @GET("api/groupDetail/{idGroup}")
+    fun getGroupDetail(@Path("idGroup") idGroup: String): Call<Group>
 }
