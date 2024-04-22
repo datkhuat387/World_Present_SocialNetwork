@@ -1,14 +1,16 @@
 package com.example.world_present_socialnetwork.model.post
 
 import com.example.world_present_socialnetwork.model.comment.CommentsExtend
+import com.example.world_present_socialnetwork.model.group.Group
 import com.example.world_present_socialnetwork.model.like.LikeExtend
+import com.example.world_present_socialnetwork.model.page.Page
 import com.example.world_present_socialnetwork.model.user.User
 
 data class PostsExtend(
     var _id:String? = null,
     var idUser: User,
-    var idGroup:String? = null,
-    var idPage: String? = null,
+    var idGroup:Group? = null,
+    var idPage: Page? = null,
     var isOwner: Boolean? = null,
     var isLiked: Boolean? = null,
     var content:String? = null,

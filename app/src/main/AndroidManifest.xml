@@ -17,12 +17,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.friend.ListFriendActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.GroupDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.MyGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.GroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.group.createGroup.CreateGroupActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.search.SearchResultsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.search.SearchActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".ui.user.profile.UpdateCoverImageActivity"
             android:exported="false" />

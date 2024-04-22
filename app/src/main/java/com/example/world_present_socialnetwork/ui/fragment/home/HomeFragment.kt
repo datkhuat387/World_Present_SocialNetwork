@@ -18,6 +18,8 @@ import com.example.world_present_socialnetwork.databinding.FragmentHomeBinding
 import com.example.world_present_socialnetwork.model.like.LikeExtend
 import com.example.world_present_socialnetwork.model.post.PostsExtend
 import com.example.world_present_socialnetwork.ui.comment.CommentActivity
+import com.example.world_present_socialnetwork.ui.group.GroupDetailActivity
+import com.example.world_present_socialnetwork.ui.group.MyGroupActivity
 import com.example.world_present_socialnetwork.ui.post.addPost.AddPostActivity
 import com.example.world_present_socialnetwork.ui.post.updatePost.UpdatePostActivity
 import com.example.world_present_socialnetwork.ui.search.SearchActivity
@@ -129,6 +131,19 @@ class HomeFragment : Fragment() {
                 }else{
                     val intent = Intent(requireContext(), ProfileActivity::class.java)
                     intent.putExtra("idUserAt",idUserAt)
+                    startActivity(intent)
+                }
+
+            }
+
+            override fun onClickGroup(idGroup: String, idCreator: String) {
+                if(idUser==idCreator){
+                    val intent = Intent(requireContext(), MyGroupActivity::class.java)
+                    intent.putExtra("idGroup",idGroup)
+                    startActivity(intent)
+                }else{
+                    val intent = Intent(requireContext(), GroupDetailActivity::class.java)
+                    intent.putExtra("idGroup",idGroup)
                     startActivity(intent)
                 }
 

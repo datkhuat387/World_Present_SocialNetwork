@@ -255,13 +255,40 @@ class CommentActivity : AppCompatActivity() {
     private fun getDetailPost(idPost: String){
         postController.getDetailPost(idPost){detailPost, error->
             if(detailPost!=null){
-                Glide.with(this)
-                    .load(Common.baseURL+detailPost.idUser.avatar)
-                    .placeholder(R.drawable.avatar_profile)
-                    .error(R.drawable.avatar_profile)
-                    .into(binding.imageAvt)
-                binding.tvName.text = detailPost.idUser.fullname
-                binding.tvDate.text = detailPost.updateAt?.let { Common.formatDateTime(it) }
+                if(detailPost.idGroup==null){
+                    binding.lnrNameDate2.visibility = View.VISIBLE
+                    binding.imageAvt.visibility = View.VISIBLE
+                    binding.relativeLayout.visibility = View.GONE
+                    binding.lnrNameGr.visibility = View.GONE
+                    Glide.with(this)
+                        .load(Common.baseURL+detailPost.idUser.avatar)
+                        .placeholder(R.drawable.avatar_profile)
+                        .error(R.drawable.avatar_profile)
+                        .into(binding.imageAvt)
+                    binding.tvName.text = detailPost.idUser.fullname
+                    binding.tvDate.text = detailPost.updateAt?.let { Common.formatDateTime(it) }
+                }else{
+                    binding.lnrNameDate2.visibility = View.GONE
+                    binding.imageAvt.visibility = View.GONE
+
+                    binding.relativeLayout.visibility = View.VISIBLE
+                    binding.lnrNameGr.visibility = View.VISIBLE
+
+                    Glide.with(this)
+                        .load(Common.baseURL+ detailPost.idGroup!!.coverImage)
+                        .placeholder(R.drawable.cover_image_default)
+                        .error(R.drawable.cover_image_default)
+                        .into(binding.imgCoverGr)
+
+                    Glide.with(this)
+                        .load(Common.baseURL+detailPost.idUser.avatar)
+                        .placeholder(R.drawable.avatar_profile)
+                        .error(R.drawable.avatar_profile)
+                        .into(binding.imageAvt2)
+                    binding.tvGroup.text = detailPost.idGroup!!.name
+                    binding.tvName2.text = detailPost.idUser.fullname
+                    binding.tvDate2.text = " • "+detailPost.updateAt?.let { Common.formatDateTime(it) }
+                }
                 binding.tvContent.text = detailPost.content
                 ////////
                 if(detailPost.content == null||detailPost.content == ""){

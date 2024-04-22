@@ -134,4 +134,24 @@ class FriendshipController {
 
         })
     }
+    fun getListFriend(idUser: String, callback: (MutableList<FriendshipsExtend>?, String?) -> Unit){
+        apiService.getListFriend(idUser).enqueue(object : Callback<MutableList<FriendshipsExtend>>{
+            override fun onResponse(
+                call: Call<MutableList<FriendshipsExtend>>,
+                response: Response<MutableList<FriendshipsExtend>>
+            ) {
+                if(response.isSuccessful){
+                    val friend = response.body()
+                    callback(friend, null)
+                }else{
+                    callback(null, response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<MutableList<FriendshipsExtend>>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+        })
+    }
 }

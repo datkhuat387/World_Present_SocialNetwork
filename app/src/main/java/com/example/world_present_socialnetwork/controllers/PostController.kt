@@ -120,4 +120,45 @@ class PostController {
 
         })
     }
+
+    fun getPostByIdUser(idUserAt: String,idUser: String, callback: (List<PostsExtend>?, String?) -> Unit){
+        apiService.getPostByIdUser(idUserAt,idUser).enqueue(object : Callback<List<PostsExtend>>{
+            override fun onResponse(
+                call: Call<List<PostsExtend>>,
+                response: Response<List<PostsExtend>>
+            ) {
+                if(response.isSuccessful){
+                    val post = response.body()
+                    callback(post,null)
+                }else{
+                    callback(null, response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<List<PostsExtend>>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+        })
+    }
+    fun getPostByIdGroup(idGroup: String, idUser: String, callback: (List<PostsExtend>?, String?) -> Unit){
+        apiService.getPostByIdGroup(idGroup,idUser).enqueue(object : Callback<List<PostsExtend>>{
+            override fun onResponse(
+                call: Call<List<PostsExtend>>,
+                response: Response<List<PostsExtend>>
+            ) {
+                if(response.isSuccessful){
+                    val post = response.body()
+                    callback(post,null)
+                }else{
+                    callback(null, response.errorBody()?.string())
+                }
+            }
+
+            override fun onFailure(call: Call<List<PostsExtend>>, t: Throwable) {
+                callback(null, t.message)
+            }
+
+        })
+    }
 }

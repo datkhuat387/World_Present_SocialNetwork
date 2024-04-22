@@ -28,6 +28,7 @@ import java.io.File
 class MyProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyProfileBinding
     private val listFragment = mutableListOf<Fragment>()
+    private var idUserAt: String? = null
     private lateinit var viewPager2Adapter: ViewPager2Adapter
     private var idUser: String? = null
     private var imageUri: Uri? = null
@@ -41,7 +42,7 @@ class MyProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         val sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE)
         idUser = sharedPreferences?.getString("id","")
-
+        idUserAt = intent.getStringExtra("idUserAt")
         idUser?.let { getUser(it) }
         idUser?.let { getUserInfo(it) }
         binding.imgBack.setOnClickListener {
@@ -61,9 +62,13 @@ class MyProfileActivity : AppCompatActivity() {
         binding.btnExtend.setOnClickListener {
             Toast.makeText(this,"Extend",Toast.LENGTH_SHORT).show()
         }
+        binding.swipeToRefresh.setOnRefreshListener {
+            if(binding.swipeToRefresh.isRefreshing){
+                onResume()
+            }
+        }
         setUpTabLayout()
     }
-
     override fun onResume() {
         super.onResume()
         idUser?.let { getUser(it) }
@@ -86,6 +91,7 @@ class MyProfileActivity : AppCompatActivity() {
                     .placeholder(R.drawable.avatar_profile)
                     .error(R.drawable.avatar_profile)
                     .into(binding.imgAvatar)
+                binding.swipeToRefresh.isRefreshing = false
             }else{
                 Toast.makeText(this@MyProfileActivity, "$error", Toast.LENGTH_SHORT).show()
             }
@@ -127,7 +133,7 @@ class MyProfileActivity : AppCompatActivity() {
         }
     }
     private fun setUpTabLayout(){
-        listFragment.add(0, PostProfileFragment())
+        listFragment.add(0, idUserAt?.let { PostProfileFragment(it) }!!)
         listFragment.add(1, PhotoProfileFragment())
         listFragment.add(2, ReelsProfileFragment())
         viewPager2Adapter = ViewPager2Adapter(listFragment, this)
