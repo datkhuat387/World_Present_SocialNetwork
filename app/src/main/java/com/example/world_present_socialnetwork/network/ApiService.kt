@@ -5,6 +5,8 @@ import com.example.world_present_socialnetwork.model.comment.CommentsExtend
 import com.example.world_present_socialnetwork.model.friend.Friendships
 import com.example.world_present_socialnetwork.model.friend.FriendshipsExtend
 import com.example.world_present_socialnetwork.model.group.Group
+import com.example.world_present_socialnetwork.model.group.GroupMember
+import com.example.world_present_socialnetwork.model.group.GroupMemberExtend
 import com.example.world_present_socialnetwork.model.like.Like
 import com.example.world_present_socialnetwork.model.like.LikeExtend
 import com.example.world_present_socialnetwork.model.user.LoginRequest
@@ -77,6 +79,14 @@ interface ApiService {
         @Part image: MultipartBody.Part?
     ): Call<Posts>
     @Multipart
+    @POST("api/createPost")
+    fun createPostGroup(
+        @Part("idUser") idUser: RequestBody,
+        @Part("idGroup") idGroup: RequestBody,
+        @Part("content") content: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): Call<Posts>
+    @Multipart
     @PUT("api/updatePost/{id}")
     fun updatePost(
         @Path("id") id: String,
@@ -94,7 +104,8 @@ interface ApiService {
     @GET("api/getPostByIdGroup/{idGroup}/{idUser}")
     fun getPostByIdGroup(
         @Path("idGroup") idGroup: String,
-        @Path("idUser") idUser: String ): Call<List<PostsExtend>>
+        @Path("idUser") idUser: String
+    ): Call<List<PostsExtend>>
     //-------------------------- Like -----------------------------//
     @POST("api/like")
     fun like(@Body like: Like): Call<LikeExtend>
@@ -133,6 +144,11 @@ interface ApiService {
     fun notConfirmFriend(@Path("id") id: String): Call<Void>
     @PUT("api/confirmAddFriend/{id}")
     fun confirmFriend(@Path("id") id: String): Call<Friendships>
+    @GET("api/listFriendById/{idUser}/{idUserAt}")
+    fun getListFriendById(
+        @Path("idUser") idUser: String,
+        @Path("idUserAt") idUserAt: String
+    ): Call<MutableList<FriendshipsExtend>>
     //------------------------- Group ------------------------------//
     @POST("api/createGroup/{idUser}")
     fun createGroup(
@@ -143,4 +159,30 @@ interface ApiService {
     fun getMyGroupManage(@Path("idUser") idUser: String): Call<List<Group>>
     @GET("api/groupDetail/{idGroup}")
     fun getGroupDetail(@Path("idGroup") idGroup: String): Call<Group>
+    //--------------------- Group Member ---------------------------//
+    @POST("api/joinGroup")
+    fun joinGroup(@Body groupMember: GroupMember): Call<GroupMember>
+    @GET("api/getJoin/{idGroup}/{idUser}")
+    fun getJoin(
+        @Path("idGroup") idGroup: String,
+        @Path("idUser") idUser: String
+    ): Call<GroupMember>
+    @GET("api/listWaitJoin/{idGroup}")
+    fun listWaitJoin(@Path("idGroup") idGroup: String): Call<MutableList<GroupMemberExtend>>
+    @GET("api/listMember/{idGroup}")
+    fun listMember(@Path("idGroup") idGroup: String): Call<MutableList<GroupMemberExtend>>
+    @GET("api/listMemberBan/{idGroup}")
+    fun listMemberBan(@Path("idGroup") idGroup: String): Call<MutableList<GroupMemberExtend>>
+    @GET("api/listJoinedGroup/{idUser}")
+    fun listJoinedGroup(@Path("idUser") idUser: String): Call<MutableList<GroupMemberExtend>>
+    @PUT("api/confirmJoin/{idGroupMember}")
+    fun confirmJoin(@Path("idGroupMember") idGroupMember: String): Call<GroupMember>
+    @PUT("api/banMember/{idGroupMember}")
+    fun banMember(@Path("idGroupMember") idGroupMember: String): Call<GroupMemberExtend>
+    @DELETE("api/kickMember/{idGroupMember}")
+    fun kickMember(@Path("idGroupMember") idGroupMember: String): Call<GroupMemberExtend>
+    @DELETE("api/cancelJoin/{idGroupMember}")
+    fun cancelJoin(@Path("idGroupMember") idGroupMember: String): Call<GroupMemberExtend>
+    @DELETE("api/outGroup/{idGroupMember}")
+    fun outGroup(@Path("idGroupMember") idGroupMember: String): Call<Void>
 }

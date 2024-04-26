@@ -63,7 +63,12 @@ class PostProfileFragment(val idUserAt: String) : Fragment() {
         val sharedPreferences = activity?.getSharedPreferences("profile", Context.MODE_PRIVATE)
         idUser = sharedPreferences?.getString("id","")
         idUser?.let { getPostByIdUser(it,idUserAt) }
-        getListFriend(idUserAt)
+        idUser?.let { getListFriend(it,idUserAt) }
+        binding.btnAllFriend.setOnClickListener {
+            val intent = Intent(requireContext(),ListFriendActivity::class.java)
+            intent.putExtra("idUserAt",idUserAt)
+            startActivity(intent)
+        }
         binding.btnAllFriend.setOnClickListener {
             val intent = Intent(requireContext(),ListFriendActivity::class.java)
             intent.putExtra("idUserAt",idUserAt)
@@ -165,14 +170,15 @@ class PostProfileFragment(val idUserAt: String) : Fragment() {
             }
         }
     }
-    private fun getListFriend(idUserAt: String){
-        friendshipController.getListFriend(idUserAt){friend, error->
+    private fun getListFriend(idUser:String, idUserAt: String){
+        friendshipController.getListFriendById(idUser,idUserAt){friend, error->
             if(friend!=null){
                 friendAdapter.setUserId(idUserAt)
                 listFriend = friend
+                binding.friendCount.text = listFriend.size.toString()+" bạn bè"
                 friendAdapter.updateDataPost(listFriend)
             }else{
-                Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "$error", Toast.LENGTH_SHORT).show()
             }
         }
     }
