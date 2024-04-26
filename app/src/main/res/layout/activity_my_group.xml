@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.group.MyGroupActivity">
     <LinearLayout
+        android:id="@+id/lnr_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="15dp"
@@ -46,109 +47,117 @@
             android:src="@drawable/ic_optionmenu"
             />
     </LinearLayout>
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true"
-        android:overScrollMode="always"
-        >
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnr_toolBar">
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:overScrollMode="always"
             >
-            <ImageView
-                android:id="@+id/img_cover_gr_ex"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@color/gray_4"
-                android:scaleType="centerCrop" />
-            <TextView
-                android:id="@+id/tv_name_gr_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hội đua xe"
-                android:textSize="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:drawableEnd="@drawable/ic_back_right"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                />
-            <LinearLayout
-                android:id="@+id/lnr_manage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                >
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_manage"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10sp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_btn_profile"
-                    android:paddingHorizontal="15sp"
-                    android:paddingVertical="10sp"
-                    android:text="Quản lý"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_invite"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_btn_profile_2"
-                    android:paddingHorizontal="15dp"
-                    android:paddingVertical="5dp"
-                    android:text="Mời"
-                    android:textAllCaps="false"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 >
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_avt"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/avatar_profile"
-                    app:shapeAppearanceOverlay="@style/round_avt_cirle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/img_cover_gr_ex"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@color/gray_4"
+                    android:scaleType="centerCrop" />
                 <TextView
-                    android:id="@+id/tv_post"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/tv_name_gr_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hội đua xe"
+                    android:textSize="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:drawableEnd="@drawable/ic_back_right"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    />
+                <LinearLayout
+                    android:id="@+id/lnr_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    >
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_manage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_btn_profile"
+                        android:paddingHorizontal="15sp"
+                        android:paddingVertical="10sp"
+                        android:text="Quản lý"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_invite"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_btn_profile_2"
+                        android:paddingHorizontal="15dp"
+                        android:paddingVertical="5dp"
+                        android:text="Mời"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp"
+                    >
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/image_avt"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/avatar_profile"
+                        app:shapeAppearanceOverlay="@style/round_avt_cirle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_post"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Bạn hãy viết gì đó..."
+                        android:layout_marginVertical="5dp"
+                        android:textSize="16dp"
+                        android:gravity="center|left"
+                        />
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcv_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Bạn hãy viết gì đó..."
-                    android:layout_marginVertical="5dp"
-                    android:textSize="16dp"
-                    android:gravity="center|left"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="1"
+                    tools:listitem="@layout/item_post"
                     />
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_post"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="1"
-                tools:listitem="@layout/item_post"
-                />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

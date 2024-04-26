@@ -17,6 +17,7 @@ class AddPostActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPostBinding
     private var postController = PostController()
     private var imageUri: Uri? = null
+    private var idGroup: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,6 +27,8 @@ class AddPostActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("profile", Context.MODE_PRIVATE)
         val idUser = sharedPreferences?.getString("id", "").toString()
         Log.e("test add", "$idUser")
+        idGroup = intent.getStringExtra("idGroup")
+        Log.e("test add", "$idGroup")
         addPost(idUser)
         binding.btnBack.setOnClickListener {
             finish()
@@ -49,14 +52,25 @@ class AddPostActivity : AppCompatActivity() {
             } else {
                 null
             }
-
-            postController.createPost(id, content, imageFile) { post, error ->
-                if (post != null) {
-                    Toast.makeText(this, "Bài viết đã được tạo thành công", Toast.LENGTH_SHORT).show()
-                    finish()
-                    Log.e("TAG", "addPost: $post" )
-                } else {
-                    Toast.makeText(this, "Đã xảy ra lỗi khi tạo bài viết: $error", Toast.LENGTH_SHORT).show()
+            if(idGroup!=null){
+                postController.createPostGroup(id, idGroup!!,content, imageFile){ post, error->
+                    if(post!=null){
+                        Toast.makeText(this, "Bài viết đã được tạo thành công", Toast.LENGTH_SHORT).show()
+                        finish()
+                        Log.e("TAG", "addPost: $post" )
+                    }else{
+                        Toast.makeText(this, "Đã xảy ra lỗi khi tạo bài viết: $error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }else{
+                postController.createPost(id,content, imageFile) { post, error ->
+                    if (post != null) {
+                        Toast.makeText(this, "Bài viết đã được tạo thành công", Toast.LENGTH_SHORT).show()
+                        finish()
+                        Log.e("TAG", "addPost: $post" )
+                    } else {
+                        Toast.makeText(this, "Đã xảy ra lỗi khi tạo bài viết: $error", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

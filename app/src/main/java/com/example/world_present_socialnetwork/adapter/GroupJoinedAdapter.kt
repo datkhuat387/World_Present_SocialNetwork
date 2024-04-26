@@ -8,13 +8,14 @@ import com.bumptech.glide.Glide
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.databinding.ItemGroupBinding
 import com.example.world_present_socialnetwork.model.group.Group
+import com.example.world_present_socialnetwork.model.group.GroupMemberExtend
 import com.example.world_present_socialnetwork.model.post.PostsExtend
 import com.example.world_present_socialnetwork.utils.Common
 
-class GroupAdapter: RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
-    private val listGr = mutableListOf<Group>()
+class GroupJoinedAdapter: RecyclerView.Adapter<GroupJoinedAdapter.GroupViewHolder>() {
+    private val listGr = mutableListOf<GroupMemberExtend>()
     private var groupListener: GroupListener? = null
-    fun updateData(list: List<Group>){
+    fun updateData(list: MutableList<GroupMemberExtend>){
         this.listGr.clear()
         this.listGr.addAll(list)
         notifyDataSetChanged()
@@ -38,17 +39,17 @@ class GroupAdapter: RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
         if(listGr.isNotEmpty()){
             val item = listGr[position]
             holder.itemView.setOnClickListener {
-                item._id?.let { it1 -> groupListener?.onClickGroup(it1) }
+                item.idGroup!!._id?.let { it1 -> groupListener!!.onClickGroup(it1) }
             }
             holder.binding.apply {
                 Glide.with(holder.itemView.context)
-                    .load(Common.baseURL+item.coverImage)
+                    .load(Common.baseURL+ (item.idGroup?.coverImage))
                     .placeholder(R.drawable.avatar_profile)
                     .error(R.drawable.avatar_profile)
                     .into(imgCoverGr)
 
-                tvNameGr.text = item.name
-                tvUpdateDate.text = item.updateAt
+                tvNameGr.text = item.idGroup?.name
+                tvUpdateDate.text = item.idGroup?.updateAt
             }
         }
     }

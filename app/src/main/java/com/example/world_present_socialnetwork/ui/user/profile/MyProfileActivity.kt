@@ -105,7 +105,6 @@ class MyProfileActivity : AppCompatActivity() {
                     .placeholder(R.drawable.cover_image_default)
                     .error(R.drawable.cover_image_default)
                     .into(binding.imgCover)
-                Toast.makeText(this@MyProfileActivity, "${userInfo.isActive}", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(this@MyProfileActivity, "$error", Toast.LENGTH_SHORT).show()
             }

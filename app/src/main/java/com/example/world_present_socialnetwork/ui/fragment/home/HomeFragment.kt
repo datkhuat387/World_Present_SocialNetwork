@@ -133,7 +133,6 @@ class HomeFragment : Fragment() {
                     intent.putExtra("idUserAt",idUserAt)
                     startActivity(intent)
                 }
-
             }
 
             override fun onClickGroup(idGroup: String, idCreator: String) {

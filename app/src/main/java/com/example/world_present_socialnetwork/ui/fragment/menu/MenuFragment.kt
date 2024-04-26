@@ -19,6 +19,7 @@ import com.example.world_present_socialnetwork.ui.group.MyGroupActivity
 import com.example.world_present_socialnetwork.ui.group.createGroup.CreateGroupActivity
 import com.example.world_present_socialnetwork.ui.setting.SettingActivity
 import com.example.world_present_socialnetwork.ui.user.postSave.PostSaveActivity
+import com.example.world_present_socialnetwork.ui.user.profile.MyProfileActivity
 import com.example.world_present_socialnetwork.utils.Common
 
 class MenuFragment : Fragment() {
@@ -42,6 +43,11 @@ class MenuFragment : Fragment() {
         id = sharedPreferences?.getString("id","")
         Log.e("test1", "$id")
         id?.let { getUser(it) }
+        binding.lnrBtnProfile.setOnClickListener {
+            val intent = Intent(context,MyProfileActivity::class.java)
+            intent.putExtra("idUserAt",id)
+            startActivity(intent)
+        }
         binding.tvSetting.setOnClickListener {
             val intent = Intent(context,SettingActivity::class.java)
             startActivity(intent)
