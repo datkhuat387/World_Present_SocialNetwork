@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -24,12 +26,20 @@ class SearchActivity : AppCompatActivity() {
         binding.imgBack.setOnClickListener {
             finish()
         }
-        binding.imgSearch.setOnClickListener {
-            val textSearch = binding.edSearch.text.toString()
-            val intent = Intent(this,SearchResultsActivity::class.java)
-            intent.putExtra("search",textSearch)
-            Log.e("TAG", "onCreate: $textSearch", )
-            startActivity(intent)
+        binding.edSearch.setOnEditorActionListener{ _, actionId, event->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH ||
+                (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER)
+            ){
+                Toast.makeText(this,"Search", Toast.LENGTH_SHORT).show()
+                val textSearch = binding.edSearch.text.toString()
+                val intent = Intent(this,SearchResultsActivity::class.java)
+                intent.putExtra("search",textSearch)
+                Log.e("TAG", "onCreate: $textSearch", )
+                startActivity(intent)
+                true
+            }else{
+                false
+            }
         }
     }
 }

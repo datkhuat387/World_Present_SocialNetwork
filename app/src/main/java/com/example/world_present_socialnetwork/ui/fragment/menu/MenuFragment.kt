@@ -14,6 +14,7 @@ import com.example.world_present_socialnetwork.MainActivity
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.controllers.UserController
 import com.example.world_present_socialnetwork.databinding.FragmentMenuBinding
+import com.example.world_present_socialnetwork.ui.friend.ListFriendActivity
 import com.example.world_present_socialnetwork.ui.group.GroupActivity
 import com.example.world_present_socialnetwork.ui.group.MyGroupActivity
 import com.example.world_present_socialnetwork.ui.group.createGroup.CreateGroupActivity
@@ -58,6 +59,11 @@ class MenuFragment : Fragment() {
         }
         binding.tvGroup.setOnClickListener {
             val intent = Intent(requireContext(),GroupActivity::class.java)
+            startActivity(intent)
+        }
+        binding.tvFriend.setOnClickListener {
+            val intent = Intent(context,ListFriendActivity::class.java)
+            intent.putExtra("idUserAt",id)
             startActivity(intent)
         }
         binding.tvLogOut.setOnClickListener {

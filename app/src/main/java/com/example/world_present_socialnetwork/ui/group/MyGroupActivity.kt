@@ -22,6 +22,7 @@ import com.example.world_present_socialnetwork.databinding.ActivityMyGroupBindin
 import com.example.world_present_socialnetwork.model.like.LikeExtend
 import com.example.world_present_socialnetwork.model.post.PostsExtend
 import com.example.world_present_socialnetwork.ui.comment.CommentActivity
+import com.example.world_present_socialnetwork.ui.group.manage.ManageActivity
 import com.example.world_present_socialnetwork.ui.post.addPost.AddPostActivity
 import com.example.world_present_socialnetwork.ui.post.updatePost.UpdatePostActivity
 import com.example.world_present_socialnetwork.ui.user.profile.MyProfileActivity
@@ -55,6 +56,10 @@ class MyGroupActivity : AppCompatActivity() {
         idGroup?.let { idUser?.let { it1 -> getPostByIdGroup(it, it1) } }
         binding.imgBack.setOnClickListener {
             finish()
+        }
+        binding.btnManage.setOnClickListener {
+            val intent = Intent(this,ManageActivity::class.java)
+            startActivity(intent)
         }
         binding.tvPost.setOnClickListener {
             val intent = Intent(this, AddPostActivity::class.java)
