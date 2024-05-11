@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.databinding.FragmentSearchPostBinding
 
-class SearchPostFragment : Fragment() {
+class SearchPostFragment(val textSearch: String?) : Fragment() {
     private var _binding: FragmentSearchPostBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(

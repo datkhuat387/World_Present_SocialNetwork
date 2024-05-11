@@ -28,8 +28,8 @@ class FriendshipController {
 
         })
     }
-    fun unFriend(idUser: String,callback: (String?,String?)->Unit){
-        apiService.unFriend(idUser).enqueue(object : Callback<Void>{
+    fun unFriend(idFriendship: String,callback: (String?,String?)->Unit){
+        apiService.unFriend(idFriendship).enqueue(object : Callback<Void>{
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if(response.isSuccessful){
                     callback("Đã hủy kết bạn", null)

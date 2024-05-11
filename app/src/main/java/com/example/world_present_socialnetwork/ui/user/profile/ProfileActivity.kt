@@ -27,6 +27,7 @@ class ProfileActivity : AppCompatActivity() {
     private val listFragment = mutableListOf<Fragment>()
     private var isFriend: Boolean? = false
     private var idUser: String? = null
+    private var idFriendship: String? = null
     private lateinit var viewPager2Adapter: ViewPager2Adapter
     private val userController = UserController()
     private val friendshipController = FriendshipController()
@@ -49,7 +50,7 @@ class ProfileActivity : AppCompatActivity() {
             if(isFriend == false){
                 idUser?.let { it1 -> idUserAt?.let { it2 -> addFriend(it1, it2) } }
             }else{
-                idUser?.let { it1 -> unFriend(it1) }
+                idFriendship?.let { it1 -> unFriend(it1) }
             }
         }
         binding.swipeToRefresh.setOnRefreshListener {
@@ -99,6 +100,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun friend(idUser: String, idFriend: String){
         friendshipController.friend(idUser,idFriend){friend, error->
             if(friend!=null){
+                idFriendship = friend._id
                 if(friend.status == 0){
                     binding.btnAddFriend.text = "Chờ chấp nhận"
                     binding.btnAddFriend.setBackgroundColor(ContextCompat.getColor(this,R.color.white))
@@ -138,8 +140,8 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
     }
-    private fun unFriend(idUSer: String){
-        friendshipController.unFriend(idUSer){ friend, error->
+    private fun unFriend(idFriendship: String){
+        friendshipController.unFriend(idFriendship){ friend, error->
             if(friend!=null){
                 isFriend = false
                 binding.btnAddFriend.text = "Thêm bạn bè"

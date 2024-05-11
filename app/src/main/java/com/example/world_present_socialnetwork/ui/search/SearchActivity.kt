@@ -18,6 +18,7 @@ import com.example.world_present_socialnetwork.databinding.ActivitySearchBinding
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
+    private var textSearchNew: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
@@ -26,6 +27,8 @@ class SearchActivity : AppCompatActivity() {
         binding.imgBack.setOnClickListener {
             finish()
         }
+        textSearchNew = intent.getStringExtra("textSearchNew")
+        binding.edSearch.setText(textSearchNew)
         binding.edSearch.setOnEditorActionListener{ _, actionId, event->
             if(actionId == EditorInfo.IME_ACTION_SEARCH ||
                 (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER)

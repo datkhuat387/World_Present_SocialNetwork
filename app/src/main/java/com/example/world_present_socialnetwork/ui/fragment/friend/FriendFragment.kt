@@ -48,6 +48,7 @@ class FriendFragment : Fragment() {
         idUser?.let { getListWaitConfirm(it) }
         idUser?.let { getListIsWaitConfirm(it) }
 
+        visibilityFriend()
         binding.seeAll1.setOnClickListener {
             val intent = Intent(requireContext(),ConfirmFriendActivity::class.java)
             startActivity(intent)
@@ -91,12 +92,13 @@ class FriendFragment : Fragment() {
         super.onResume()
         idUser?.let { getListWaitConfirm(it) }
         idUser?.let { getListIsWaitConfirm(it) }
+        visibilityFriend()
     }
     private fun getListWaitConfirm(idUser: String){
         friendshipController.getListWaitConfirm(idUser){list, error->
             if(list!=null){
                 listCFriend = list
-                cFriendAdapter.updateCFriend(listCFriend!!)
+                cFriendAdapter.updateCFriend(listCFriend)
             }else{
                 Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
                 Log.e("TAG", "getListWait: $error" )
@@ -107,10 +109,42 @@ class FriendFragment : Fragment() {
         friendshipController.getListIsWaitConfirm(idUser){list, error->
             if(list!=null){
                 listWFriend = list
-                wFriendAdapter.updateWFriend(listWFriend!!)
+                wFriendAdapter.updateWFriend(listWFriend)
             }else{
                 Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
                 Log.e("TAG", "getIsListIsWait: $error" )
+            }
+        }
+    }
+
+    private fun visibilityFriend(){
+        if(listCFriend.size == 0){
+            if(listWFriend.size == 0){
+                binding.lnrSeeAll.visibility = View.GONE
+                binding.rcvConfirmFriend.visibility = View.GONE
+                binding.lnrSeeAll2.visibility = View.GONE
+                binding.rcvWaitConfirm.visibility = View.GONE
+                binding.tvToast.visibility = View.VISIBLE
+            }else{
+                binding.lnrSeeAll.visibility = View.GONE
+                binding.rcvConfirmFriend.visibility = View.GONE
+                binding.lnrSeeAll2.visibility = View.VISIBLE
+                binding.rcvWaitConfirm.visibility = View.VISIBLE
+                binding.tvToast.visibility = View.GONE
+            }
+        }else{
+            if(listWFriend.size == 0){
+                binding.lnrSeeAll.visibility = View.VISIBLE
+                binding.rcvConfirmFriend.visibility = View.VISIBLE
+                binding.lnrSeeAll2.visibility = View.GONE
+                binding.rcvWaitConfirm.visibility = View.GONE
+                binding.tvToast.visibility = View.GONE
+            }else{
+                binding.lnrSeeAll.visibility = View.VISIBLE
+                binding.rcvConfirmFriend.visibility = View.VISIBLE
+                binding.lnrSeeAll2.visibility = View.VISIBLE
+                binding.rcvWaitConfirm.visibility = View.VISIBLE
+                binding.tvToast.visibility = View.GONE
             }
         }
     }
