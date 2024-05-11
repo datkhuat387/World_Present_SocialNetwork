@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ui.search.fragment.SearchUserFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_list_everybody"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_result_search_friend"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:itemCount="5"
+        app:spanCount="1"
+        android:layout_marginTop="10dp"
+        android:visibility="visible"
+        />
 
-</FrameLayout>
+</LinearLayout>

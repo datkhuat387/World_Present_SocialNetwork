@@ -128,8 +128,8 @@ interface ApiService {
     //------------------------- Friend ------------------------------//
     @POST("api/addFriend")
     fun addFriend(@Body friendships: Friendships): Call<Friendships>
-    @DELETE("api/unFriend/{idUser}")
-    fun unFriend(@Path("idUser") idUser: String): Call<Void>
+    @DELETE("api/unFriend/{idFriendship}")
+    fun unFriend(@Path("idFriendship") idFriendship: String): Call<Void>
     @GET("api/friend/{idUser}/{idFriend}")
     fun friend(@Path("idUser") idUser: String,
                @Path("idFriend") idFriend: String

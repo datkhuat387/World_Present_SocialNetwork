@@ -1,13 +1,15 @@
 package com.example.world_present_socialnetwork.ui.search
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
+import android.view.KeyEvent
+import android.view.MotionEvent
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.example.world_present_socialnetwork.R
 import com.example.world_present_socialnetwork.adapter.SearchViewPage2Adapter
 import com.example.world_present_socialnetwork.databinding.ActivitySearchResultsBinding
 import com.example.world_present_socialnetwork.ui.search.fragment.GroupFragment
@@ -21,25 +23,36 @@ class SearchResultsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchResultsBinding
     private val listFragment = mutableListOf<Fragment>()
     private lateinit var searchViewPage2Adapter: SearchViewPage2Adapter
+    private var textSearch: String? = null
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchResultsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val textSearch = intent.getStringExtra("search")
+        textSearch = intent.getStringExtra("search")
         Log.e("TAG", "onCreate: $textSearch", )
 
         binding.imgBack.setOnClickListener {
             finish()
         }
         binding.edSearch.setText(textSearch)
+        binding.edSearch.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                // Chuyển sang hoạt động khác tại đây
+                val intent = Intent(this@SearchResultsActivity,SearchActivity::class.java)
+                intent.putExtra("textSearchNew",textSearch)
+                startActivity(intent)
+            }
+            false
+        }
         setUpTabLayout()
     }
     private fun setUpTabLayout(){
-        listFragment.add(0,SearchAllFragment())
-        listFragment.add(1,SearchPostFragment())
-        listFragment.add(2,SearchUserFragment())
-        listFragment.add(3,GroupFragment())
-        listFragment.add(4,PageFragment())
+        listFragment.add(0,SearchAllFragment(textSearch))
+        listFragment.add(1,SearchPostFragment(textSearch))
+        listFragment.add(2,SearchUserFragment(textSearch))
+        listFragment.add(3,GroupFragment(textSearch))
+        listFragment.add(4,PageFragment(textSearch))
         binding.vp2Search.isUserInputEnabled = false
         binding.vp2Search.setCurrentItem(0,true)
         searchViewPage2Adapter = SearchViewPage2Adapter(listFragment,this)
