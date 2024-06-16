@@ -86,6 +86,11 @@ class FriendFragment : Fragment() {
             }
 
         })
+        binding.swipeToRefresh.setOnRefreshListener {
+            if(binding.swipeToRefresh.isRefreshing){
+                onResume()
+            }
+        }
     }
 
     override fun onResume() {
@@ -99,6 +104,7 @@ class FriendFragment : Fragment() {
             if(list!=null){
                 listCFriend = list
                 cFriendAdapter.updateCFriend(listCFriend)
+                binding.swipeToRefresh.isRefreshing = false
             }else{
                 Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
                 Log.e("TAG", "getListWait: $error" )
@@ -110,6 +116,7 @@ class FriendFragment : Fragment() {
             if(list!=null){
                 listWFriend = list
                 wFriendAdapter.updateWFriend(listWFriend)
+                binding.swipeToRefresh.isRefreshing = false
             }else{
                 Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
                 Log.e("TAG", "getIsListIsWait: $error" )
